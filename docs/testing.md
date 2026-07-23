@@ -20,8 +20,11 @@ Testing systems beyond the current lint, TypeScript, and build commands are plan
 ## Smallest relevant verification first
 
 - Run the narrowest command that proves the current change.
-- Documentation-only changes should at least use markdown/diff hygiene checks when requested.
-- Code changes should run lint, TypeScript, build, or targeted tests based on risk.
+- Documentation-only change: `git diff --check` and `git status --short`.
+- Frontend code change: `npm run lint` and `npx tsc --noEmit`.
+- Routes, layouts, configuration, or production-sensitive change: `npm run build`.
+- Runtime or interaction change: browser verification when practical.
+- Motion or 3D change: reduced-motion, mobile, fallback, and runtime checks when relevant.
 
 ## Full verification
 
@@ -34,11 +37,21 @@ Run broader verification when changes affect:
 - Forms, localization, SEO metadata, analytics, motion, 3D, or deployment behavior.
 - Critical user journeys.
 
+Current baseline full verification:
+
+- `npm run lint`.
+- `npx tsc --noEmit`.
+- `npm run build`.
+
 ## Reporting rules
 
 - Do not claim testing unless it was actually performed.
-- Report command names, outcomes, and relevant warnings.
-- Report untested areas explicitly.
+- Report exact commands run.
+- Report pass or fail result.
+- Report blocking errors.
+- Report non-blocking warnings.
+- Report environmental limitations.
+- Report anything not tested.
 - Distinguish planned test coverage from implemented test coverage.
 
 ## Planned CI direction

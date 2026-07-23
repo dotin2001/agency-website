@@ -40,6 +40,38 @@ Planned source organization will be introduced only when implementation requires
 - Avoid abstractions until they remove real repetition or clarify ownership.
 - Preserve accessibility and responsive behavior in shared primitives.
 
+## Coding standards
+
+### Naming
+
+- React components use PascalCase.
+- Hooks use `useSomething`.
+- Utilities and functions use camelCase.
+- Constants use descriptive names.
+- Route segments use lowercase.
+- Content slugs use lowercase kebab-case.
+- Avoid vague names such as `Thing`, `Stuff`, `Data`, `Box`, or `Helper` without context.
+
+### Component structure
+
+- Use Server Components by default.
+- Add `"use client"` only when required.
+- Keep Client Component boundaries narrow.
+- Prefer composition over oversized components.
+- Separate page sections, UI primitives, motion, and 3D responsibilities.
+- Avoid duplicate markup and logic.
+- Keep page files focused on composition.
+- Do not create abstractions before they have a real use.
+
+### Styling
+
+- Use Tailwind consistently.
+- Prefer documented tokens once implemented.
+- Avoid unexplained arbitrary values.
+- Keep responsive behavior explicit.
+- Avoid inline styles except for genuinely dynamic values.
+- Do not use animation to hide layout problems.
+
 ## Content and presentation boundaries
 
 Content should be structured separately from presentation so localization, CMS migration, SEO metadata, and route rendering can evolve without rewriting UI components.
@@ -55,6 +87,14 @@ The CMS is not selected. Future CMS code should be isolated behind content acces
 ## Dependency policy
 
 Currently configured dependencies support Next.js, React, TypeScript, Tailwind CSS, and ESLint. Planned dependencies such as Framer Motion, GSAP, ScrollTrigger, Lenis, Three.js, React Three Fiber, Drei, CMS SDKs, and analytics libraries must not be installed until their implementation step and must include justification.
+
+Before adding a dependency:
+
+1. Explain why the platform or existing stack is insufficient.
+2. Confirm alignment with project architecture.
+3. Review bundle, maintenance, and accessibility impact.
+4. Add it only in the implementation step that requires it.
+5. Update relevant docs if it changes architecture.
 
 ## Architecture decision rules
 
