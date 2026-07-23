@@ -72,11 +72,12 @@ Implemented:
 - Tailwind CSS.
 - ESLint.
 - AGENTS.md.
+- Product documentation.
+- Project skills.
+- Verification scripts.
 
 Not implemented:
 
-- Product documentation.
-- Project skills.
 - Production UI.
 - Localization runtime.
 - Theme runtime.
