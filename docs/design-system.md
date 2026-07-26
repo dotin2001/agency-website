@@ -261,23 +261,186 @@ The type scale is planned and subject to visual testing. Exact pixel values are 
 
 ## Spacing principles
 
-- Use a consistent spacing scale.
-- Give narrative sections room to breathe.
-- Keep operational UI such as navigation and forms compact and predictable.
-- Reduce spacing intentionally on mobile instead of simply shrinking desktop layouts.
+Spacing is planned as a token-based scale. Exact values are unresolved and should be implemented later through design tokens, not arbitrary one-off values.
+
+Planned spacing tokens:
+
+- `space-0`: no spacing.
+- `space-1`: smallest inline gap or tight utility spacing.
+- `space-2`: compact control and icon gaps.
+- `space-3`: small component spacing.
+- `space-4`: standard control spacing and compact padding.
+- `space-5`: medium component spacing.
+- `space-6`: card padding and grouped UI spacing.
+- `space-8`: content-group spacing and larger card padding.
+- `space-10`: section-internal spacing.
+- `space-12`: standard section spacing.
+- `space-16`: major section spacing.
+- `space-20`: storytelling transition spacing.
+- `space-24`: chapter spacing and large media separation.
+- `space-32`: hero spacing and major narrative breathing room.
+
+Intended usage:
+
+- Inline gaps: `space-1` through `space-3`.
+- Control spacing: `space-2` through `space-4`.
+- Card padding: `space-4` through `space-8`.
+- Content-group spacing: `space-6` through `space-10`.
+- Section spacing: `space-12` through `space-16`.
+- Chapter spacing: `space-20` through `space-24`.
+- Hero spacing: `space-24` through `space-32`.
+
+Rules:
+
+- Use spacing tokens instead of arbitrary values.
+- Keep vertical rhythm consistent.
+- Use larger spacing for storytelling transitions.
+- Reduce spacing intentionally on smaller screens.
+- Do not compress mobile layouts until content becomes crowded.
+- Avoid using margins to compensate for broken component structure.
+
+## Container principles
+
+Planned container roles:
+
+- `container-page`: standard page alignment and outer horizontal rhythm.
+- `container-content`: common section content width.
+- `container-reading`: long-form text and readable narrative copy.
+- `container-wide`: project media, editorial compositions, and wider case-study layouts.
+- `container-full`: edge-to-edge visuals or controlled 3D scenes.
+
+Rules:
+
+- Use `container-page` for standard page alignment.
+- Use `container-content` for common sections.
+- Use `container-reading` for long-form copy.
+- Use `container-wide` for project media and editorial compositions.
+- Use `container-full` only for intentional edge-to-edge media or 3D scenes.
+- Text should not span overly wide layouts.
+- Full-width media must preserve readable overlays.
+- Content alignment should remain consistent between sections unless an editorial break is intentional.
+- Project pages may use wider media than standard content.
+- Mobile containers require safe horizontal padding.
 
 ## Grid principles
 
-- Use responsive grids that support editorial storytelling and case-study scanning.
-- Prefer clear alignment and rhythm over decorative asymmetry.
-- Keep form and navigation layouts stable across breakpoints.
+Use a planned responsive editorial grid. Exact gutter sizes and breakpoint values remain unresolved.
+
+Desktop:
+
+- 12-column editorial grid.
+- Flexible gutters.
+- Supports asymmetric layouts.
+- Supports project media spanning multiple columns.
+
+Tablet:
+
+- 8-column grid.
+- Simplified asymmetry.
+- Reduced gutters.
+- Avoid overly complex overlapping layouts.
+
+Mobile:
+
+- 4-column grid.
+- Primarily vertical flow.
+- Selective two-column layouts only when readable.
+- No dependence on hover.
+- Avoid horizontal overflow.
+
+Grid rules:
+
+- Define column spans per section or component instead of relying on visual guessing.
+- Gutters should scale with viewport and content density.
+- Nested grids are allowed only when they clarify media, cards, or form layout.
+- Align section headings, body copy, and CTAs consistently unless an editorial break is intentional.
+- Content may intentionally break the grid for cinematic media or 3D moments, but only when readability and accessibility remain intact.
+- Visual experimentation must not harm readability.
 
 ## Responsive breakpoint principles
 
+Use semantic breakpoint roles rather than device-brand targets. Exact values remain unresolved.
+
+- `compact`: narrow mobile and constrained embedded views.
+- `small`: standard mobile layouts.
+- `medium`: tablet and small laptop layouts.
+- `large`: desktop layouts.
+- `wide`: large desktop and presentation-like layouts.
+
+Rules:
+
+- Breakpoints should respond to layout needs.
+- Components may adapt before global page breakpoints when needed.
+- Avoid designing only for a few fixed screen widths.
+- Test intermediate widths.
+- Orientation changes must not break layouts.
+- Browser zoom must not cause horizontal scrolling.
 - Mobile layouts must be intentionally designed first for reading and conversion.
 - Tablet layouts should avoid cramped desktop compositions.
 - Desktop layouts may use more cinematic composition and larger media.
 - Wide screens should preserve readable text widths.
+
+## Section layout rules
+
+- Each section needs a clear content hierarchy.
+- Section headings should align consistently unless an editorial break is intentional.
+- Major storytelling chapters should have visual breathing room.
+- Project sections may use alternating alignment.
+- Avoid repeating identical centered layouts across the full experience.
+- Edge-to-edge media must have accessible text placement.
+- Sticky sections require a non-sticky fallback.
+- Minimum-height sections must not force content clipping.
+
+## Responsive storytelling rules
+
+- Hero: desktop may use large editorial type with central media or 3D; mobile should prioritize headline, CTAs, and simplified media.
+- Challenge chapter: desktop may use fragmented compositions; mobile should use stacked readable problem groups.
+- Transformation chapter: desktop may use scroll-linked assembly; mobile should preserve the sequence in a clear vertical flow.
+- Selected projects: desktop may use wide media and spatial transitions; mobile should use vertical or swipeable project entries with visible CTAs.
+- Team: desktop may use layered portraits; mobile should simplify portraits and keep bios scannable.
+- Testimonials: desktop may use horizontal or sequential progression; mobile should show one story at a time or stacked accessible content.
+- Final CTA: desktop may echo the hero composition; mobile should keep CTA visible, direct, and easy to reach.
+- Horizontal desktop experiences should become vertical or swipeable on mobile.
+- Overlapping media should become layered but readable.
+- Text should remain in normal document flow when possible.
+- Reduce content density on compact screens.
+- CTAs must remain visible and easy to reach.
+- Narrative order must remain unchanged across devices.
+- 3D cannot be required to understand the story.
+
+## Media and 3D-safe layout
+
+- Reserve stable dimensions for media.
+- Prevent layout shift.
+- Define text-safe regions over media.
+- Maintain fallback content outside the canvas.
+- Avoid placing essential text inside WebGL.
+- Account for navigation, browser chrome, and safe areas.
+- Simplify or reposition 3D on compact screens.
+- Provide a static composition when canvas is unavailable.
+- Project media should remain inspectable and must not be obscured by decorative layout effects.
+
+## Layout accessibility rules
+
+- Interactive targets should remain large enough for touch use.
+- Layouts must support visible keyboard focus.
+- Content must reflow at 200% zoom.
+- Essential information must not be hidden by overflow.
+- Reading order must match DOM order.
+- Visual reordering must not create confusing keyboard or screen-reader order.
+- Avoid requiring horizontal scrolling for normal page content.
+- Sticky content must not trap focus or obscure controls.
+- These behaviors are requirements, not verified results in this step.
+
+## Open layout decisions
+
+- Exact spacing values.
+- Exact container max widths.
+- Exact breakpoint values.
+- Final gutter sizes.
+- Whether every page uses the same page container.
+- Exact mobile strategy for horizontal project galleries.
+- Exact sticky-section usage.
 
 ## Border, radius, layering, and elevation
 
