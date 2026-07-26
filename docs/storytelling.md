@@ -23,7 +23,7 @@
 - Intended user emotion: recognition, tension, and urgency.
 - Required content: concise problem statements about generic brand communication, disconnected campaigns, weak digital experiences, and creative work without measurable purpose.
 - Visual direction: fragmented or disconnected visual system with layered typography and content fragments that remain readable.
-- Motion direction: Energy mode used as controlled tension; elements may separate, drift, or lose alignment without visual chaos.
+- Motion direction: Discovery mode with controlled tension; elements may separate, drift, or lose alignment without visual chaos.
 - Selective 3D role: central object may fracture or reveal disconnected parts as a spatial metaphor; static HTML copy carries the meaning.
 - Primary CTA or interaction: optional scroll prompt into the agency approach; no hard conversion CTA required.
 - Transition into the next chapter: fragmented elements begin to reconnect.
@@ -51,7 +51,7 @@
 - Intended user emotion: interest, credibility, and desire to inspect details.
 - Required content: 3 to 5 selected projects with client or project name, industry, services, short challenge or result statement, project media, and links.
 - Visual direction: cinematic, image-led editorial layouts, full-width or layered project presentation, and strong contrast between projects.
-- Motion direction: Energy mode with image reveal, perspective depth, smooth zoom or spatial transition, and no overuse of 3D card tilt.
+- Motion direction: Energy mode transitioning toward Confidence, with image reveal, perspective depth, smooth zoom or spatial transition, and no overuse of 3D card tilt.
 - Selective 3D role: none by default; use only when a project story specifically benefits from spatial treatment.
 - Primary CTA or interaction: Explore a Case Study, with View All Projects as the secondary interaction.
 - Transition into the next chapter: move from the work to the people behind it.
@@ -99,6 +99,18 @@
 - Transition into the next chapter: no next chapter; route to contact or inquiry flow.
 - Mobile adaptation: make the CTA immediate, thumb-accessible, and visually separate from supporting copy.
 - Reduced-motion adaptation: show the completed form statically and avoid any looping closure animation.
+
+## Homepage motion-mode mapping
+
+- Enter the World: Discovery.
+- The Challenge: Discovery with controlled tension.
+- The Transformation: Energy.
+- Selected Projects: Energy transitioning to Confidence.
+- The People: Confidence.
+- Client Stories: Confidence.
+- Start the Next Story: Confidence with visual closure.
+
+This mapping is directional guidance, not a fixed animation recipe. Reduced-motion behavior must preserve chapter order and content hierarchy, and mobile motion may simplify the treatment while keeping the same narrative sequence.
 
 ## Narrative continuity
 
