@@ -2,11 +2,20 @@
 
 ## Project summary
 
-- Modern, creative agency website.
+- Modern creative and digital agency website.
+- Positioning: strategy, creativity, technology, and performance for memorable brand experiences.
 - Cinematic storytelling.
 - Selective interactive 3D.
 - Project case studies.
 - Lead generation and contact conversion.
+
+## Target-client context
+
+- Growing Vietnamese brands.
+- Premium consumer brands.
+- Real estate and hospitality brands.
+- Food and beverage brands.
+- Companies that need stronger brand presence and digital performance.
 
 ## Core website journey
 
@@ -90,7 +99,7 @@ Not implemented:
 ## Open project decisions
 
 - Agency name confirmation.
-- Positioning statement.
+- Final agency tagline.
 - Target industries.
 - Final services.
 - Default locale.
