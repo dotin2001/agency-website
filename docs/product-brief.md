@@ -55,6 +55,14 @@ Create a modern creative and digital agency website that uses cinematic storytel
 - Confirm credibility through client stories.
 - Start a conversation with clear next steps.
 
+## Homepage experience summary
+
+- The homepage follows a seven-chapter journey: Enter the World, The Challenge, The Transformation, Selected Projects, The People, Client Stories, and Start the Next Story.
+- Selected Projects is the main proof section and should carry the strongest evidence of capability, craft, and relevance.
+- The experience should balance creative atmosphere with clear messaging, readable content, and direct conversion paths.
+- 3D is progressive enhancement for the central transformation metaphor, not required for comprehension or conversion.
+- Primary homepage conversion: Start a Project.
+
 ## Business goals
 
 - Generate qualified project inquiries.
