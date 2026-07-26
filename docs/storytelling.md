@@ -116,30 +116,109 @@ The central 3D object can support this progression, but the page must remain und
 
 ## Planned project case-study journey
 
+Project detail pages should follow this planned journey. The structure guides storytelling, design, media planning, and CMS modeling, but individual projects may omit optional content when it is not available or not relevant.
+
 ### Opening
 
-- Establish the project identity, client context, and immediate result or hook.
+- Narrative purpose: establish the project identity and create immediate interest.
+- Required content: project title, client, industry, year, services, short project statement, and hero media.
+- Optional content: campaign period, project role, collaborators, and a brief context note.
+- Visual direction: immediate and visual, with strong project media, clear metadata, and an editorial opening composition.
+- Motion direction: Discovery mode with restrained media reveal and a simple "scroll to explore the case study" cue.
+- Media requirements: hero media needs alt text or equivalent fallback copy, stable dimensions, and a performant poster when video or 3D is used.
+- Accessibility considerations: project metadata must be available as readable text; hero media cannot be the only source of meaning.
+- Mobile adaptation: stack title, metadata, CTA, and hero media in a clear reading order with no dependence on wide-screen composition.
+- Relationship to the next section: the opening sets context, then hands off to the specific client or market problem.
 
 ### Challenge
 
-- Explain the business, brand, communication, or experience problem.
+- Narrative purpose: explain the client, market, communication, or experience problem clearly.
+- Required content: business context, communication or experience problem, and project objective.
+- Optional content: audience context, market constraints, and previous-state visuals.
+- Visual direction: concise editorial problem framing with supporting visuals only when they clarify the prior state.
+- Motion direction: Confidence mode; reveal problem points without dramatizing them or reducing readability.
+- Media requirements: previous-state visuals must be approved, captioned, and clearly distinguished from final work.
+- Accessibility considerations: avoid exaggerated claims and unsupported problem statements; use plain language and evidence where available.
+- Mobile adaptation: use short sections or cards with clear headings and enough spacing for scanning.
+- Relationship to the next section: the problem creates the need for a sharper insight.
 
 ### Insight
 
-- Show the strategic observation that shaped the creative direction.
+- Narrative purpose: reveal the strategic understanding that shaped the work.
+- Required content: audience or brand insight, concise insight statement, and connection between the challenge and strategy.
+- Optional content: research evidence, behavioral observation, and cultural context.
+- Visual direction: focused, text-led section with one strong supporting visual or data point if available.
+- Motion direction: Discovery mode or restrained Confidence mode; the insight should feel clarified, not theatrical.
+- Media requirements: any research artifact, quote, or observation must be approved and contextualized.
+- Accessibility considerations: insight copy should be understandable without relying on animated diagrams or visual-only metaphors.
+- Mobile adaptation: keep the insight statement short and prominent, with supporting context below it.
+- Relationship to the next section: the insight explains why the selected strategy makes sense.
+
+### Strategy
+
+- Narrative purpose: explain the direction selected to solve the problem.
+- Required content: strategic approach, priority audience, communication or experience direction, and success criteria where available.
+- Optional content: channel strategy, campaign phases, and experience principles.
+- Visual direction: structured decision narrative, using diagrams or grouped principles only when they improve comprehension.
+- Motion direction: Confidence mode; use step reveals sparingly to show sequence without turning the section into a report.
+- Media requirements: diagrams or frameworks need text equivalents and should not depend on fine detail at small sizes.
+- Accessibility considerations: preserve logical heading order and avoid image-only strategy diagrams.
+- Mobile adaptation: stack strategy components in a simple progression with concise labels.
+- Relationship to the next section: the strategy leads into the central creative idea.
 
 ### Creative concept
 
-- Present the central idea, narrative, visual system, or experience principle.
+- Narrative purpose: present the central idea and creative system.
+- Required content: concept name, concept explanation, visual direction, and key message.
+- Optional content: moodboard, typography, colors, design language, motion language, and 3D role.
+- Visual direction: expressive and visual, showing how the idea becomes a recognizable creative system.
+- Motion direction: Energy mode when revealing the system, with restraint around type and key messages.
+- Media requirements: concept visuals need captions, alt text, and approval; moodboards should avoid unlicensed or unclear-source imagery.
+- Accessibility considerations: key messages and design rationale must be available as text, not only embedded in images.
+- Mobile adaptation: prioritize concept name, explanation, and a small number of high-value visuals before extended supporting media.
+- Relationship to the next section: the concept becomes tangible through execution.
 
 ### Execution
 
-- Document the deliverables, craft decisions, channels, and production details.
+- Narrative purpose: show how the concept was brought to life.
+- Required content: execution overview, key deliverables, image gallery with approximately 4 to 8 visuals, and media captions or context.
+- Optional content: video, motion, website screens, social assets, campaign assets, 3D assets, and behind-the-scenes content.
+- Visual direction: carry most of the visual weight with image-led layouts, clear sequencing, and enough contrast between deliverable types.
+- Motion direction: Energy mode for image reveals and gallery transitions; avoid motion that blocks inspection of the work.
+- Media requirements: gallery must support image captions, alternative text, keyboard navigation, touch or swipe behavior, reduced-motion behavior, and responsive layouts.
+- Accessibility considerations: gallery controls need labels and visible focus states; important content must not be available only through an inaccessible carousel.
+- Mobile adaptation: use responsive, stable media frames with captions near their images and touch-friendly controls.
+- Relationship to the next section: execution shows what was made, then impact explains what changed or what value was created.
 
 ### Impact
 
-- Share measurable outcomes, client response, audience effect, or qualitative value.
+- Narrative purpose: show evidence and project outcome.
+- Required content when available: verified results, measurable metrics, qualitative outcome, and client feedback.
+- Optional content: testimonial, press coverage, awards, and before-and-after comparison.
+- Visual direction: credible, easy to scan, and less decorative than concept or execution sections.
+- Motion direction: Confidence mode with calm metric reveals; avoid animated counters unless values are verified and readable without animation.
+- Media requirements: charts, before-and-after visuals, or awards need context, captions, and source notes when needed.
+- Accessibility considerations: never invent metrics; distinguish verified metrics from qualitative claims; include metric source or context when needed; allow a transparent "results not disclosed" state.
+- Mobile adaptation: use compact metric blocks and short qualitative summaries; keep source notes readable.
+- Relationship to the next section: impact provides closure and creates momentum toward another project or inquiry.
 
 ### Next story
 
-- Guide visitors to another case study or the contact route.
+- Narrative purpose: continue exploration or drive conversion.
+- Required content: next project, primary CTA "Start a Similar Project", and secondary CTA "View Next Project".
+- Optional content: related projects, related services, and contact prompt.
+- Visual direction: natural transition rather than a hard stop, with a clear path to the next project and inquiry.
+- Motion direction: Confidence mode with a simple transition into the next project preview.
+- Media requirements: next project preview needs thumbnail, title, industry or service context, and alt text.
+- Accessibility considerations: CTAs must be keyboard accessible, clearly labeled, and understandable outside visual context.
+- Mobile adaptation: keep next project and inquiry CTAs stacked, visible, and easy to tap.
+- Relationship to the next section: no next case-study section; route to related content or contact.
+
+## Case-study pacing principles
+
+- Opening should be immediate and visual.
+- Challenge and Insight should be concise and readable.
+- Strategy should explain decisions without becoming a report.
+- Creative Concept and Execution should carry most of the visual weight.
+- Impact should be credible and easy to scan.
+- Next Story should create a natural transition rather than a hard stop.
