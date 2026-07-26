@@ -20,6 +20,22 @@ The project uses the root-level `app/` directory. Do not move the application in
 
 Planned source organization will be introduced only when implementation requires it. Future folders may separate route UI, reusable components, content models, providers, motion helpers, 3D scenes, and utilities, but no future source folders are created in this step.
 
+## Planned route ownership
+
+The locale-prefixed route structure below is planned only. Do not create these folders or files in this step; the project currently still has only the scaffold route at `app/page.tsx`.
+
+- `app/[locale]/layout.tsx`: localized route shell, locale validation boundary, shared public navigation, footer, and future localized metadata coordination.
+- `app/[locale]/page.tsx`: localized homepage and primary brand narrative.
+- `app/[locale]/about/page.tsx`: agency story, values, approach, credibility, and team preview.
+- `app/[locale]/services/page.tsx`: service areas, process, engagement types, and related work paths.
+- `app/[locale]/projects/page.tsx`: selected projects index, project discovery, and case-study entry points.
+- `app/[locale]/projects/[slug]/page.tsx`: project detail story for approved case-study slugs.
+- `app/[locale]/team/page.tsx`: team, roles, collaboration style, and people-focused trust content.
+- `app/[locale]/contact/page.tsx`: project inquiry flow, contact details, and qualification prompts.
+- `app/[locale]/privacy/page.tsx`: privacy and data handling information.
+
+The root `app/page.tsx` remains the current scaffold homepage until a later implementation step decides and builds locale resolution or redirect behavior.
+
 ## Rendering boundaries
 
 - Use Server Components by default.
