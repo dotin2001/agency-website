@@ -96,6 +96,17 @@ Content should be structured separately from presentation so localization, CMS m
 
 Future providers for theme, locale, analytics, smooth scrolling, motion configuration, or 3D performance settings should be introduced close to the route tree only when the related feature is implemented.
 
+## Planned theme ownership
+
+Theme implementation belongs in Phase 3, not this documentation step.
+
+- Root layout: owns document structure, future theme-safe root attributes, readable server-rendered content, and avoiding preventable hydration mismatch.
+- Future `ThemeProvider`: reads user preference, resolves `system`, `light`, or `dark`, follows system changes when appropriate, persists explicit preference, and updates the document theme attribute.
+- Future theme control: lets users choose `system`, `light`, or `dark` with accessible labels, keyboard support, touch support, and clear selected state.
+- Semantic theme tokens: provide the same token names in light and dark themes while CSS owns normal visual differences.
+
+Server Components remain the default. Only preference resolution and theme-control interaction should require a narrow Client Component boundary; ordinary page content must not become client-rendered because of theming.
+
 ## Future CMS boundary
 
 The CMS is not selected. Future CMS code should be isolated behind content access functions or adapters so route components do not depend directly on vendor-specific APIs.

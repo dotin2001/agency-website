@@ -104,6 +104,150 @@ The color system is planned only. Do not create CSS variables, theme runtime, or
 - Avoid excessive glow effects.
 - Preserve readable contrast around project media and 3D content.
 
+## Planned theme system
+
+Theme behavior is planned only. Do not create CSS variables, theme runtime, theme controls, scripts, or provider components in this step.
+
+### Preference states
+
+Supported preference states:
+
+- `system`: follows the operating-system preference.
+- `light`: forces the light theme.
+- `dark`: forces the dark theme.
+
+The resolved theme is the actual rendered value: `light` or `dark`.
+
+Unresolved:
+
+- Whether first visit defaults to `system`.
+- Whether a project-specific page may recommend a presentation mode.
+- Whether theme preference is shared across locales.
+
+### Theme ownership
+
+Root layout responsibilities when implemented:
+
+- Provide the document structure.
+- Expose theme-safe root attributes.
+- Prevent avoidable hydration mismatch.
+- Keep essential content renderable without JavaScript.
+
+Theme provider responsibilities when implemented:
+
+- Read user preference.
+- Resolve `system`, `light`, or `dark`.
+- React to system-preference changes when mode is `system`.
+- Expose preference and resolved theme.
+- Update the document theme attribute.
+- Persist explicit user preference.
+
+The provider is planned, not implemented. It should be introduced in Phase 3, Step 3.3, and its Client Component boundary must remain narrow.
+
+Theme control responsibilities when implemented:
+
+- Allow `system`, `light`, and `dark` selection.
+- Expose an accessible label.
+- Work with keyboard and touch.
+- Show the selected preference clearly.
+- Avoid relying only on icons.
+
+### Document attribute direction
+
+The planned root theme strategy may use:
+
+- `data-theme="light"`.
+- `data-theme="dark"`.
+
+An equivalent class-based strategy remains acceptable. The final implementation library or internal approach is not selected.
+
+Rules:
+
+- Components consume semantic tokens.
+- Components should not inspect theme directly unless behavior truly changes.
+- CSS should own normal visual theme differences.
+- JavaScript should not manually recolor ordinary UI elements.
+
+### Preference persistence
+
+- Explicit user selection may be persisted locally.
+- `system` mode should continue following system changes.
+- Invalid stored values must fall back safely.
+- The website must remain usable when storage is unavailable.
+- Preference storage must not include personal data.
+- Theme preference must not require a user account.
+- Exact storage key remains unresolved.
+
+### Initial render and flash prevention
+
+- Avoid showing the wrong theme before hydration.
+- Server-rendered content must remain readable.
+- Implementation may use a small early theme-resolution strategy if necessary.
+- Any early script must remain minimal.
+- Avoid broad client rendering just to solve theme selection.
+- Do not hide the entire document until JavaScript loads.
+- Any suppression of hydration warnings must be narrow and justified.
+
+### Semantic token behavior
+
+- The same semantic token names exist in both themes.
+- Only token values change by theme.
+- Components must not maintain separate light and dark APIs for normal styling.
+- Inverse variants are for controlled contexts, not general theme switching.
+- Project-specific media colors must not redefine global theme tokens.
+- Status and focus tokens must remain understandable in both themes.
+
+### Media and project behavior
+
+- Project photography and video should preserve original color.
+- Overlays may differ by theme to preserve readability.
+- Image treatment should not apply blanket filters by default.
+- Captions and controls must remain readable over media.
+- Light and dark theme changes should not distort project branding.
+- Poster images and video controls need theme-safe treatment.
+
+### Motion behavior
+
+- Theme transitions must be subtle.
+- Avoid animating every color property across the page.
+- Do not animate theme changes when reduced motion is requested.
+- Avoid flashes, flicker, or prolonged crossfades.
+- Theme switching must not trigger layout shifts.
+- Motion libraries are not required for theme switching.
+
+### 3D behavior
+
+- 3D lighting may adapt slightly to the resolved theme.
+- Core object identity and brand colors must remain consistent.
+- 3D must not be recreated unnecessarily on every theme change.
+- Theme changes should avoid expensive scene reloads.
+- Fallback imagery must remain suitable in both themes.
+- Essential text and controls remain outside WebGL.
+- System theme and reduced-motion preferences are independent.
+
+### Theme accessibility rules
+
+- Theme control needs an accessible name.
+- Selected state must be announced or exposed semantically.
+- Keyboard operation is required.
+- Focus ring remains visible in both themes.
+- Both themes must meet contrast expectations.
+- Theme selection must not be required to access content.
+- Forced-colors and high-contrast environments must remain usable.
+- Color is not the only state indicator.
+
+Do not claim contrast or assistive-technology testing until it has been performed.
+
+### Open theme decisions
+
+- First-visit default preference.
+- Exact storage key.
+- Data attribute versus class implementation.
+- Whether to use a small internal provider or a library.
+- Whether theme preference is shared across locales.
+- Exact 3D lighting differences between themes.
+- Whether project pages may expose a preferred presentation mode.
+
 ## Provisional brand mapping
 
 This mapping is planned and subject to visual contrast testing:
