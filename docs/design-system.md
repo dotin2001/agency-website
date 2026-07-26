@@ -449,6 +449,231 @@ Rules:
 - Prefer depth through contrast, spacing, and layering before heavy shadows.
 - Avoid stacked card-in-card layouts.
 
+## Planned UI and layout primitives
+
+Primitives are planned only. Do not create React components, source folders, CSS variables, classes, animations, hover effects, or component libraries in this step.
+
+### Primitive categories
+
+Actions:
+
+- `Button`.
+- `IconButton`.
+- `TextLink`.
+- `NavigationLink`.
+
+Content surfaces:
+
+- `Card`.
+- `MediaCard`.
+- `ProjectCard`.
+- `QuoteCard`.
+
+Layout:
+
+- `Container`.
+- `Section`.
+- `Stack`.
+- `Cluster`.
+- `Grid`.
+- `Split`.
+- `Divider`.
+
+Supporting UI:
+
+- `Badge`.
+- `Tag`.
+- `Eyebrow`.
+- `MediaFrame`.
+- `AspectRatio`.
+
+### Button system
+
+Planned variants:
+
+- `primary`: dominant conversion actions.
+- `secondary`: supporting actions.
+- `ghost`: low-emphasis action on clear surfaces.
+- `text`: inline or minimal action.
+- `inverse`: controlled dark, image, or media contexts.
+
+Planned sizes:
+
+- `small`: compact UI and dense areas.
+- `medium`: default actions.
+- `large`: hero, final CTA, and major conversion actions.
+
+Required states:
+
+- Default.
+- Hover.
+- Focus-visible.
+- Active.
+- Disabled.
+- Loading.
+
+Rules:
+
+- Primary CTA must remain visually dominant.
+- Button labels must be action-oriented.
+- Icons cannot replace labels when meaning is unclear.
+- Loading state must preserve width where practical.
+- Disabled state must remain identifiable.
+- Buttons must not be used for navigation when a link is semantically correct.
+- Links must not be styled as disabled buttons without clear behavior.
+
+### Link system
+
+Link types:
+
+- Inline text links.
+- Standalone CTA links.
+- Navigation links.
+- Project transition links.
+- External links.
+
+Rules:
+
+- Links must remain recognizable without relying only on color.
+- External links should be identified when useful.
+- Navigation links need a clear active state.
+- Hover behavior must not be required for understanding.
+- Focus-visible state must be obvious.
+- Underlines may be used selectively, but interaction affordance must remain clear.
+
+### Card system
+
+`Card`:
+
+- Use for grouped informational content.
+
+`MediaCard`:
+
+- Use for content led by image or video.
+
+`ProjectCard`:
+
+- Use for selected projects and project listings.
+- Required content: project name, client or category, industry or service metadata, image or video preview, and clear destination.
+- Optional content: short challenge, result statement, year, and tags.
+
+`QuoteCard`:
+
+- Use for client testimonials.
+
+Rules:
+
+- The whole card may be clickable only when semantics and focus behavior remain clear.
+- Avoid nested interactive elements inside a clickable card.
+- Media needs stable dimensions.
+- Cards must not depend on 3D tilt to communicate interactivity.
+- Content hierarchy must remain clear without hover.
+- Project cards can vary editorially while sharing consistent metadata behavior.
+
+### Layout primitives
+
+`Container`:
+
+- Use the defined container roles: `container-page`, `container-content`, `container-reading`, `container-wide`, and `container-full`.
+
+`Section`:
+
+- Owns section spacing, optional section background, accessible heading relationship, layout composition, and anchor target when needed.
+
+`Stack`:
+
+- Use for vertical spacing between related elements.
+
+`Cluster`:
+
+- Use for inline groups that wrap naturally, such as buttons, tags, metadata, and social links.
+
+`Grid`:
+
+- Use for repeated content and editorial layouts.
+
+`Split`:
+
+- Use for paired content such as copy and media, challenge and evidence, or CTA and supporting copy.
+
+`Divider`:
+
+- Use for visual separation, metadata separation, and section rhythm.
+
+Rules:
+
+- Primitives control layout, not page-specific narrative.
+- Avoid deeply nested layout wrappers.
+- Do not create multiple primitives with nearly identical responsibilities.
+- Layout primitives must accept responsive adaptation.
+- Page sections should compose primitives instead of duplicating structural CSS.
+
+### Badge, tag, and eyebrow
+
+- `Badge`: short status or classification.
+- `Tag`: topic, service, or project category.
+- `Eyebrow`: small contextual label above a heading.
+
+Rules:
+
+- Do not use all-uppercase by default.
+- Keep text short.
+- Do not use color as the only distinction.
+- Tags must not look interactive unless they are controls.
+- Badges and tags require accessible contrast.
+
+### MediaFrame and AspectRatio
+
+- Reserve stable media dimensions.
+- Support configurable aspect ratios.
+- Define responsive cropping behavior.
+- Provide object-position guidance for important subject matter.
+- Keep captions associated with the related media.
+- Support video posters.
+- Provide fallback content.
+- Respect reduced-motion behavior for autoplay previews.
+
+### Primitive theme behavior
+
+- All primitives consume semantic color tokens.
+- Light and dark variants should not require separate component APIs unless behavior differs.
+- Inverse variants are reserved for controlled dark or media contexts.
+- Focus states must remain visible in both themes.
+- Project-specific campaign colors must not break global UI states.
+
+### Primitive accessibility rules
+
+- Use native semantic elements first.
+- Maintain minimum touch target expectations.
+- Preserve keyboard operability.
+- Provide visible focus-visible states.
+- Announce loading states when needed.
+- Use correct disabled semantics.
+- Avoid nested interactive controls.
+- Icon-only buttons need accessible names.
+- Essential actions need visible labels.
+- Cards must preserve logical reading and focus order.
+
+### Primitive performance rules
+
+- Primitives should remain lightweight.
+- Static primitives must not require an animation library.
+- Standard UI primitives must not depend on 3D.
+- Media previews should lazy-load when appropriate.
+- Avoid unnecessary Client Components.
+- Server Components remain the default where interaction is not required.
+
+### Open primitive decisions
+
+- Exact button height and padding values.
+- Exact radius scale.
+- Exact icon library.
+- Whether project cards use video previews by default.
+- Whether whole-card links are used consistently.
+- Exact card border and elevation treatment.
+- Exact `Section` component API.
+- Exact responsive `Grid` API.
+
 ## Component states
 
 - Components need default, hover, focus-visible, active, disabled, loading, error, and success states where relevant.
