@@ -116,11 +116,148 @@ This mapping is planned and subject to visual contrast testing:
 
 ## Typography principles
 
-- Strong editorial hierarchy.
-- Short, confident headings.
-- Readable body copy across Vietnamese and English.
-- Avoid decorative type that weakens accessibility or localization.
-- Preserve line length and rhythm on mobile.
+Typography is planned only. Do not install fonts, add `next/font`, create CSS variables, or implement typography classes in this step.
+
+### Typography roles
+
+Use a two-role font system:
+
+- Display font: expressive headlines for cinematic and editorial moments.
+- Sans-serif text font: body, UI, metadata, captions, forms, and long-form reading.
+
+Final fonts are unresolved. Font selection must provide full Vietnamese character support, strong English support, suitable variable-font options where practical, acceptable web performance, clear licensing, only necessary weights, readable punctuation and numerals, and no dependence on a display font for essential UI.
+
+### Display typography
+
+Use for homepage hero, project openings, major storytelling statements, and section transitions.
+
+- Role: bold editorial presence with strong contrast against body text.
+- Size direction: largest type in the system, scaled down intentionally on smaller screens.
+- Line-height direction: tight enough for display impact but generous enough for Vietnamese diacritics.
+- Weight direction: strong weights only where readability holds.
+- Tracking direction: default or slightly controlled tracking; avoid tight tracking that harms Vietnamese readability.
+- Responsive behavior: reduce size and line length on mobile; avoid overflow and avoid manual line breaks unless editorially required.
+- Usage rule: do not use display typography for long paragraphs or dense UI.
+
+### Heading typography
+
+- `h1`: page title or project opening title; strongest semantic page heading, usually one per page.
+- `h2`: major section heading for homepage chapters, case-study sections, and primary page sections.
+- `h3`: subsection heading for grouped content, service blocks, project details, and team or proof modules.
+- `h4`: compact heading for cards, metadata groups, form sections, and supporting modules.
+
+Heading rules:
+
+- Preserve semantic heading order; visual scale must not replace document structure.
+- Keep expected line length controlled, especially for Vietnamese headings.
+- Use spacing to clarify section relationships rather than relying only on size.
+- Mobile headings should wrap naturally and reduce scale intentionally.
+- Avoid hardcoded line breaks that only work in one locale.
+
+### Body typography
+
+- Large body or lead text: introductory statements, section leads, and short editorial explanations.
+- Standard body text: paragraphs, case-study narrative, service descriptions, and general content.
+- Compact body text: supporting details where density is needed, but not for long reading.
+
+Body rules:
+
+- Prioritize readability over atmosphere.
+- Keep line length controlled.
+- Use line-height that supports Vietnamese and English diacritics.
+- Keep paragraph spacing consistent.
+- Avoid overly small text.
+- Avoid uppercase for long body content.
+
+### UI typography
+
+Use for buttons, navigation, labels, form fields, tabs, filters, and utility text.
+
+- Role: concise, readable, consistent interaction language.
+- Size direction: compact but comfortably readable.
+- Line-height direction: stable enough for controls and form fields.
+- Weight direction: medium emphasis for actions and labels; avoid thin weights.
+- Tracking direction: normal by default; uppercase only when intentional and accessible.
+- Responsive behavior: labels must remain clear in both Vietnamese and English and must not require hover-only context.
+
+### Caption and metadata typography
+
+Use for project industry, year, services, image captions, client roles, helper text, and validation messages.
+
+- Role: visually secondary but readable.
+- Size direction: smaller than body text but not so small that captions or validation messages become difficult to read.
+- Line-height direction: enough for multi-line captions and form helper text.
+- Weight direction: regular or medium depending on contrast and density.
+- Tracking direction: normal by default; overline treatment may use controlled spacing only for short labels.
+- Responsive behavior: captions stay close to related media and metadata wraps without truncating important context.
+
+### Planned type tokens
+
+The type scale is planned and subject to visual testing. Exact pixel values are not selected in this step.
+
+- `type-display-xl`: hero and major opening statements; largest fluid display size, tight-but-readable line-height, strong weight, normal or controlled tracking, significant mobile reduction.
+- `type-display-lg`: section transitions and project openings; large fluid display size, readable line-height, strong weight, normal tracking, mobile reduction.
+- `type-heading-1`: page-level `h1`; large heading size, balanced line-height, bold or semibold weight, normal tracking, wraps naturally.
+- `type-heading-2`: major section `h2`; clear section scale, comfortable line-height, semibold or bold weight, normal tracking, responsive reduction.
+- `type-heading-3`: subsection `h3`; medium heading scale, readable line-height, semibold weight, normal tracking, stable across responsive layouts.
+- `type-heading-4`: compact `h4`; small heading scale, readable line-height, medium or semibold weight, normal tracking.
+- `type-body-lg`: lead copy; larger body size, generous line-height, regular or medium weight, normal tracking.
+- `type-body-md`: standard body; default reading size, comfortable line-height, regular weight, normal tracking.
+- `type-body-sm`: compact body; smaller reading size, still accessible, regular weight, normal tracking.
+- `type-ui-md`: buttons, navigation, form controls, tabs, and filters; compact size, stable line-height, medium weight, normal tracking.
+- `type-ui-sm`: utility labels and dense controls; small but readable size, stable line-height, medium or regular weight, normal tracking.
+- `type-caption`: captions, helper text, validation text, and metadata; secondary size, readable line-height, regular weight, normal tracking.
+- `type-overline`: short metadata labels only; small size, controlled line-height, medium weight, careful tracking, not for long phrases.
+
+### Fluid typography
+
+- Display and major heading sizes may use fluid scaling.
+- Body and UI text should remain within controlled accessible ranges.
+- Use `clamp()` only when implemented intentionally.
+- Mobile text must not feel like a compressed desktop scale.
+- Large text must avoid overflow in Vietnamese.
+- Headings should wrap naturally without manual line breaks unless editorially required.
+
+### Typography localization rules
+
+- Vietnamese diacritics must render correctly.
+- Long Vietnamese headings must be tested.
+- English and Vietnamese may require different line breaks.
+- Do not hardcode line breaks solely for one locale.
+- Avoid typefaces with weak Vietnamese glyph support.
+- Preserve correct punctuation and quotation marks per locale.
+- Do not reduce Vietnamese font size only to force matching layouts.
+
+### Typography accessibility rules
+
+- Body text must remain comfortably readable.
+- Zoom to 200% must not break content.
+- Headings must follow semantic order.
+- Visual scale must not replace semantic heading structure.
+- Text should not be embedded in images when HTML text can be used.
+- Focus and validation text must remain readable.
+- Avoid low-contrast thin weights.
+- Avoid motion that makes text difficult to read.
+
+### Typography performance rules
+
+- Prefer self-hosted or framework-optimized font loading.
+- Load only required families, weights, and styles.
+- Prefer variable fonts when they reduce total payload.
+- Define fallback stacks.
+- Minimize layout shift.
+- Preload only critical font files.
+- Do not load decorative fonts for unused sections.
+
+### Open typography decisions
+
+- Final display font.
+- Final body/UI font.
+- Exact type scale.
+- Exact line-height values.
+- Exact weight set.
+- Whether the display font is used in Vietnamese.
+- Whether both themes use identical weight choices.
 
 ## Spacing principles
 
