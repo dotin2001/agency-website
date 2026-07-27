@@ -1,4 +1,5 @@
 import { ChallengeSection } from "@/components/sections/home/challenge-section";
+import { FinalCtaSection } from "@/components/sections/home/final-cta-section";
 import { HeroSection } from "@/components/sections/home/hero-section";
 import { SelectedProjectsSection } from "@/components/sections/home/selected-projects-section";
 import { TeamSection } from "@/components/sections/home/team-section";
@@ -22,6 +23,7 @@ export default async function LocaleHomePage({
       <SelectedProjectsSection locale={locale as Locale} />
       <TeamSection locale={locale as Locale} />
       <TestimonialsSection locale={locale as Locale} />
+      <FinalCtaSection locale={locale as Locale} />
     </>
   );
 }
