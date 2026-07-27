@@ -1,8 +1,21 @@
-export default function ProjectsPage() {
+import { ProjectsCtaSection } from "@/components/sections/projects/projects-cta-section";
+import { ProjectsHeroSection } from "@/components/sections/projects/projects-hero-section";
+import { ProjectsListSection } from "@/components/sections/projects/projects-list-section";
+
+type Locale = "en" | "vi";
+
+export default async function ProjectsPage({
+  params,
+}: Readonly<{
+  params: Promise<{ locale: string }>;
+}>) {
+  const { locale } = await params;
+
   return (
-    <main>
-      <h1>Projects</h1>
-      <p>This page is not implemented yet.</p>
-    </main>
+    <>
+      <ProjectsHeroSection locale={locale as Locale} />
+      <ProjectsListSection locale={locale as Locale} />
+      <ProjectsCtaSection locale={locale as Locale} />
+    </>
   );
 }
