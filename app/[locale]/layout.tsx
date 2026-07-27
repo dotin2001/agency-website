@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PersistentCanvas } from "@/components/three/persistent-canvas";
 import { LanguageProvider } from "./language-provider";
 
 const supportedLocales = ["en", "vi"] as const;
@@ -30,17 +31,20 @@ export default async function LocaleLayout({
 
   return (
     <LanguageProvider locale={locale}>
+      <PersistentCanvas />
       <a
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-[var(--color-bg-page)] focus:px-4 focus:py-3 focus:text-[var(--color-text-primary)] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-brand-primary)]"
         href="#main-content"
       >
         Skip to main content
       </a>
-      <SiteHeader locale={locale} />
-      <main id="main-content" tabIndex={-1}>
-        {children}
-      </main>
-      <SiteFooter locale={locale} />
+      <div className="relative z-10">
+        <SiteHeader locale={locale} />
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
+        <SiteFooter locale={locale} />
+      </div>
     </LanguageProvider>
   );
 }
