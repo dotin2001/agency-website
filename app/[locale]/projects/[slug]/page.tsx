@@ -6,11 +6,12 @@ import { ProjectOutcomeSection } from "@/components/sections/project-detail/proj
 import { ProjectOverviewSection } from "@/components/sections/project-detail/project-overview-section";
 import { ProjectStorySection } from "@/components/sections/project-detail/project-story-section";
 import {
+  PROJECTS_CONTENT,
+  PROJECT_SLUGS,
   getNextProject,
-  getProjectBySlug,
-  supportedProjectSlugs,
-  type Locale,
-} from "@/lib/projects/project-placeholders";
+  getProjectDetail,
+} from "@/lib/content/projects";
+import type { Locale } from "@/lib/i18n/locales";
 
 type ProjectDetailPageProps = Readonly<{
   params: Promise<{
@@ -21,32 +22,9 @@ type ProjectDetailPageProps = Readonly<{
 
 const locales = ["en", "vi"] as const;
 
-const storyCopy: Record<
-  Locale,
-  {
-    approachEyebrow: string;
-    approachTitle: string;
-    challengeEyebrow: string;
-    challengeTitle: string;
-  }
-> = {
-  en: {
-    challengeEyebrow: "The Challenge",
-    challengeTitle: "Understanding the real problem",
-    approachEyebrow: "The Approach",
-    approachTitle: "Building one connected direction",
-  },
-  vi: {
-    challengeEyebrow: "Thách thức",
-    challengeTitle: "Hiểu đúng bài toán cốt lõi",
-    approachEyebrow: "Cách tiếp cận",
-    approachTitle: "Xây dựng một định hướng kết nối",
-  },
-};
-
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
-    supportedProjectSlugs.map((slug) => ({
+    PROJECT_SLUGS.map((slug) => ({
       locale,
       slug,
     })),
@@ -58,54 +36,50 @@ export default async function ProjectDetailPage({
 }: ProjectDetailPageProps) {
   const { locale, slug } = await params;
   const currentLocale = locale as Locale;
-  const project = getProjectBySlug(slug);
+  const project = getProjectDetail(currentLocale, slug);
 
   if (!project) {
     notFound();
   }
 
-  const localizedProject = project.content[currentLocale];
-  const nextProject = getNextProject(project);
-
-  if (!nextProject) {
-    notFound();
-  }
-
-  const localizedNextProject = nextProject.content[currentLocale];
-  const copy = storyCopy[currentLocale];
+  const nextProject = getNextProject(currentLocale, project.slug);
+  const labels = PROJECTS_CONTENT[currentLocale].projectDetail;
+  const allProjectsHref = `/${currentLocale}/projects`;
+  const nextProjectHref = `/${currentLocale}/projects/${nextProject.slug}`;
 
   return (
     <>
-      <ProjectHeroSection locale={currentLocale} project={localizedProject} />
+      <ProjectHeroSection labels={labels.hero} project={project} />
       <ProjectOverviewSection
-        locale={currentLocale}
-        project={localizedProject}
+        labels={labels.overview}
+        project={project}
       />
       <ProjectStorySection
-        body={localizedProject.challenge}
-        eyebrow={copy.challengeEyebrow}
+        body={project.challenge}
+        eyebrow={labels.story.challengeEyebrow}
         index={2}
-        title={copy.challengeTitle}
+        title={labels.story.challengeTitle}
       />
       <ProjectStorySection
-        body={localizedProject.approach}
-        eyebrow={copy.approachEyebrow}
+        body={project.approach}
+        eyebrow={labels.story.approachEyebrow}
         index={3}
-        title={copy.approachTitle}
+        title={labels.story.approachTitle}
         tone="contrast"
       />
       <ProjectGallerySection
-        locale={currentLocale}
-        project={localizedProject}
+        labels={labels.gallery}
+        project={project}
       />
       <ProjectOutcomeSection
-        locale={currentLocale}
-        project={localizedProject}
+        labels={labels.outcome}
+        project={project}
       />
       <ProjectNextSection
-        locale={currentLocale}
-        nextProject={localizedNextProject}
-        nextProjectSlug={nextProject.slug}
+        allProjectsHref={allProjectsHref}
+        labels={labels.next}
+        nextProject={nextProject}
+        nextProjectHref={nextProjectHref}
       />
     </>
   );

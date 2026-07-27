@@ -2,19 +2,30 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { ProjectGalleryFrame } from "@/components/ui/project-gallery-frame";
-import type {
-  Locale,
-  LocalizedProjectDetail,
-} from "@/lib/projects/project-placeholders";
 
-type ProjectGallerySectionProps = {
-  locale: Locale;
-  project: LocalizedProjectDetail;
+type ProjectGalleryItemContent = {
+  caption: string;
+  label: string;
+  variant: "wide" | "landscape" | "portrait";
 };
 
-const headings: Record<Locale, string> = {
-  en: "Project Gallery",
-  vi: "Không gian dự án",
+type ProjectGalleryContent = {
+  galleryItems: readonly [
+    ProjectGalleryItemContent,
+    ProjectGalleryItemContent,
+    ProjectGalleryItemContent,
+    ProjectGalleryItemContent,
+    ProjectGalleryItemContent,
+  ];
+};
+
+type ProjectGalleryLabels = {
+  heading: string;
+};
+
+type ProjectGallerySectionProps = {
+  labels: ProjectGalleryLabels;
+  project: ProjectGalleryContent;
 };
 
 const galleryLayoutClasses = [
@@ -26,7 +37,7 @@ const galleryLayoutClasses = [
 ] as const;
 
 export function ProjectGallerySection({
-  locale,
+  labels,
   project,
 }: Readonly<ProjectGallerySectionProps>) {
   return (
@@ -41,7 +52,7 @@ export function ProjectGallerySection({
             className="max-w-3xl text-3xl font-semibold tracking-normal text-[var(--color-text-primary)] sm:text-4xl"
             id="project-gallery-heading"
           >
-            {headings[locale]}
+            {labels.heading}
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-12 lg:items-start">
             {project.galleryItems.map((item, index) => (

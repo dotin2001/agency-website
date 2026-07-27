@@ -4,45 +4,31 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
-import type {
-  Locale,
-  LocalizedProjectDetail,
-  ProjectSlug,
-} from "@/lib/projects/project-placeholders";
 
-type ProjectNextSectionProps = {
-  locale: Locale;
-  nextProject: LocalizedProjectDetail;
-  nextProjectSlug: ProjectSlug;
+type ProjectNextContent = {
+  industry: string;
+  title: string;
 };
 
-const content: Record<
-  Locale,
-  {
-    allProjectsCta: string;
-    heading: string;
-    nextProjectCta: string;
-  }
-> = {
-  en: {
-    heading: "Continue Exploring",
-    nextProjectCta: "View Next Project",
-    allProjectsCta: "View All Projects",
-  },
-  vi: {
-    heading: "Tiếp tục khám phá",
-    nextProjectCta: "Xem dự án tiếp theo",
-    allProjectsCta: "Xem tất cả dự án",
-  },
+type ProjectNextLabels = {
+  allProjectsCta: string;
+  heading: string;
+  nextProjectCta: string;
+};
+
+type ProjectNextSectionProps = {
+  allProjectsHref: string;
+  labels: ProjectNextLabels;
+  nextProject: ProjectNextContent;
+  nextProjectHref: string;
 };
 
 export function ProjectNextSection({
-  locale,
+  allProjectsHref,
+  labels,
   nextProject,
-  nextProjectSlug,
+  nextProjectHref,
 }: Readonly<ProjectNextSectionProps>) {
-  const copy = content[locale];
-
   return (
     <Section
       aria-labelledby="project-next-heading"
@@ -60,7 +46,7 @@ export function ProjectNextSection({
                 className="max-w-3xl text-3xl font-semibold tracking-normal text-[var(--color-text-primary)] sm:text-4xl"
                 id="project-next-heading"
               >
-                {copy.heading}
+                {labels.heading}
               </h2>
             </Stack>
             <Stack gap="md">
@@ -74,17 +60,17 @@ export function ProjectNextSection({
               </div>
               <Cluster align="center" gap="sm">
                 <ButtonLink
-                  href={`/${locale}/projects/${nextProjectSlug}`}
+                  href={nextProjectHref}
                   size="large"
                 >
-                  {copy.nextProjectCta}
+                  {labels.nextProjectCta}
                 </ButtonLink>
                 <ButtonLink
-                  href={`/${locale}/projects`}
+                  href={allProjectsHref}
                   size="large"
                   variant="secondary"
                 >
-                  {copy.allProjectsCta}
+                  {labels.allProjectsCta}
                 </ButtonLink>
               </Cluster>
             </Stack>

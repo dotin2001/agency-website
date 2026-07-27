@@ -1,4 +1,4 @@
-import type { GalleryVariant } from "@/lib/projects/project-placeholders";
+type GalleryVariant = "wide" | "landscape" | "portrait";
 
 type ProjectGalleryFrameProps = {
   caption: string;

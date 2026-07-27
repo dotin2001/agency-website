@@ -2,44 +2,30 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
-import type {
-  Locale,
-  LocalizedProjectDetail,
-} from "@/lib/projects/project-placeholders";
+
+type ProjectHeroContent = {
+  client: string;
+  industry: string;
+  services: string;
+  summary: string;
+  title: string;
+};
+
+type ProjectHeroLabels = {
+  client: string;
+  placeholderDisclosure: string;
+  services: string;
+};
 
 type ProjectHeroSectionProps = {
-  locale: Locale;
-  project: LocalizedProjectDetail;
-};
-
-const disclosureCopy: Record<Locale, string> = {
-  en: "This case study is temporary structural content and must be replaced with approved project information before launch.",
-  vi: "Case study này là nội dung cấu trúc tạm thời và phải được thay thế bằng thông tin dự án đã được phê duyệt trước khi ra mắt.",
-};
-
-const labels: Record<
-  Locale,
-  {
-    client: string;
-    services: string;
-  }
-> = {
-  en: {
-    client: "Client",
-    services: "Services",
-  },
-  vi: {
-    client: "Khách hàng",
-    services: "Dịch vụ",
-  },
+  labels: ProjectHeroLabels;
+  project: ProjectHeroContent;
 };
 
 export function ProjectHeroSection({
-  locale,
+  labels,
   project,
 }: Readonly<ProjectHeroSectionProps>) {
-  const copy = labels[locale];
-
   return (
     <Section
       aria-labelledby="project-hero-heading"
@@ -73,7 +59,7 @@ export function ProjectHeroSection({
             <dl className="grid gap-4 text-sm">
               <div>
                 <dt className="font-medium text-[var(--color-text-primary)]">
-                  {copy.client}
+                  {labels.client}
                 </dt>
                 <dd className="mt-1 text-[var(--color-text-secondary)]">
                   {project.client}
@@ -81,7 +67,7 @@ export function ProjectHeroSection({
               </div>
               <div>
                 <dt className="font-medium text-[var(--color-text-primary)]">
-                  {copy.services}
+                  {labels.services}
                 </dt>
                 <dd className="mt-1 text-[var(--color-text-secondary)]">
                   {project.services}
@@ -89,7 +75,7 @@ export function ProjectHeroSection({
               </div>
             </dl>
             <p className="text-sm leading-6 text-[var(--color-text-secondary)]">
-              {disclosureCopy[locale]}
+              {labels.placeholderDisclosure}
             </p>
           </Stack>
         </Split>

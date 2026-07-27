@@ -1,4 +1,7 @@
-export const supportedProjectSlugs = [
+import type { LocalizedContent } from "@/lib/content/types";
+import type { Locale } from "@/lib/i18n/locales";
+
+export const PROJECT_SLUGS = [
   "brand-transformation",
   "integrated-campaign",
   "digital-experience",
@@ -7,17 +10,119 @@ export const supportedProjectSlugs = [
   "performance-platform",
 ] as const;
 
-export type Locale = "en" | "vi";
-export type ProjectSlug = (typeof supportedProjectSlugs)[number];
+export type ProjectSlug = (typeof PROJECT_SLUGS)[number];
 export type GalleryVariant = "wide" | "landscape" | "portrait";
 
-export type ProjectGalleryItem = {
+export type ProjectGalleryItem = Readonly<{
   caption: string;
   label: string;
   variant: GalleryVariant;
-};
+}>;
 
-export type LocalizedProjectDetail = {
+export type ProjectSummaryContent = Readonly<{
+  caseStudyLabel: string;
+  client: string;
+  industry: string;
+  services: string;
+  slug: ProjectSlug;
+  statement: string;
+  title: string;
+}>;
+
+export type ProjectDetailContent = ProjectSummaryContent &
+  Readonly<{
+    approach: string;
+    challenge: string;
+    deliverables: readonly [string, string, string, string, string];
+    galleryItems: readonly [
+      ProjectGalleryItem,
+      ProjectGalleryItem,
+      ProjectGalleryItem,
+      ProjectGalleryItem,
+      ProjectGalleryItem,
+    ];
+    nextProjectSlug: ProjectSlug;
+    outcomeDirection: string;
+    summary: string;
+  }>;
+
+export type ProjectsHeroContent = Readonly<{
+  disclosure: string;
+  eyebrow: string;
+  headline: string;
+  supportingCopy: string;
+}>;
+
+export type ProjectsCollectionContent = Readonly<{
+  headline: string;
+  projects: ProjectContentRecords;
+}>;
+
+export type ProjectsCtaContent = Readonly<{
+  eyebrow: string;
+  headline: string;
+  primaryCta: string;
+  supportingCopy: string;
+}>;
+
+export type ProjectsPageContent = Readonly<{
+  collection: ProjectsCollectionContent;
+  cta: ProjectsCtaContent;
+  hero: ProjectsHeroContent;
+}>;
+
+export type ProjectHeroLabelsContent = Readonly<{
+  client: string;
+  placeholderDisclosure: string;
+  services: string;
+}>;
+
+export type ProjectOverviewLabelsContent = Readonly<{
+  client: string;
+  deliverables: string;
+  heading: string;
+  industry: string;
+  services: string;
+}>;
+
+export type ProjectStoryLabelsContent = Readonly<{
+  approachEyebrow: string;
+  approachTitle: string;
+  challengeEyebrow: string;
+  challengeTitle: string;
+}>;
+
+export type ProjectGalleryLabelsContent = Readonly<{
+  heading: string;
+}>;
+
+export type ProjectOutcomeLabelsContent = Readonly<{
+  heading: string;
+  verifiedResultsNote: string;
+}>;
+
+export type ProjectNextLabelsContent = Readonly<{
+  allProjectsCta: string;
+  heading: string;
+  nextProjectCta: string;
+}>;
+
+export type ProjectDetailPageLabelsContent = Readonly<{
+  gallery: ProjectGalleryLabelsContent;
+  hero: ProjectHeroLabelsContent;
+  next: ProjectNextLabelsContent;
+  outcome: ProjectOutcomeLabelsContent;
+  overview: ProjectOverviewLabelsContent;
+  story: ProjectStoryLabelsContent;
+}>;
+
+export type ProjectsLocaleContent = Readonly<{
+  projectDetail: ProjectDetailPageLabelsContent;
+  projects: ProjectContentRecords;
+  projectsPage: ProjectsPageContent;
+}>;
+
+type LocalizedProjectFields = Readonly<{
   approach: string;
   challenge: string;
   client: string;
@@ -34,16 +139,26 @@ export type LocalizedProjectDetail = {
   services: string;
   summary: string;
   title: string;
-};
+}>;
 
-export type ProjectPlaceholder = {
-  content: Record<Locale, LocalizedProjectDetail>;
+type ProjectContentRecord = Readonly<{
+  content: LocalizedContent<LocalizedProjectFields>;
   nextProjectSlug: ProjectSlug;
   slug: ProjectSlug;
-};
+}>;
 
-// Temporary structural placeholder content until approved case-study data and CMS integration exist.
-export const projectPlaceholders: readonly ProjectPlaceholder[] = [
+export type ProjectContentRecords = readonly [
+  ProjectDetailContent,
+  ProjectDetailContent,
+  ProjectDetailContent,
+  ProjectDetailContent,
+  ProjectDetailContent,
+  ProjectDetailContent,
+];
+
+type ProjectContentBySlug = Readonly<Record<ProjectSlug, ProjectDetailContent>>;
+
+const projectRecords = [
   {
     slug: "brand-transformation",
     nextProjectSlug: "integrated-campaign",
@@ -716,20 +831,211 @@ export const projectPlaceholders: readonly ProjectPlaceholder[] = [
       },
     },
   },
+
+] satisfies readonly [
+  ProjectContentRecord,
+  ProjectContentRecord,
+  ProjectContentRecord,
+  ProjectContentRecord,
+  ProjectContentRecord,
+  ProjectContentRecord,
 ];
 
-export function isProjectSlug(slug: string): slug is ProjectSlug {
-  return supportedProjectSlugs.includes(slug as ProjectSlug);
+const projectCaseStudyLabels: LocalizedContent<string> = {
+  en: "View Case Study",
+  vi: "Xem case study",
+};
+
+function localizeProjectRecord(
+  project: ProjectContentRecord,
+  locale: Locale,
+): ProjectDetailContent {
+  const content = project.content[locale];
+
+  return {
+    ...content,
+    caseStudyLabel: projectCaseStudyLabels[locale],
+    nextProjectSlug: project.nextProjectSlug,
+    slug: project.slug,
+    statement: content.summary,
+  };
 }
 
-export function getProjectBySlug(slug: string) {
+function localizeProjectRecords(locale: Locale): ProjectContentRecords {
+  return [
+    localizeProjectRecord(projectRecords[0], locale),
+    localizeProjectRecord(projectRecords[1], locale),
+    localizeProjectRecord(projectRecords[2], locale),
+    localizeProjectRecord(projectRecords[3], locale),
+    localizeProjectRecord(projectRecords[4], locale),
+    localizeProjectRecord(projectRecords[5], locale),
+  ];
+}
+
+function createProjectContentBySlug(
+  projects: ProjectContentRecords,
+): ProjectContentBySlug {
+  return Object.fromEntries(
+    projects.map((project) => [project.slug, project]),
+  ) as ProjectContentBySlug;
+}
+
+const localizedProjectRecords: LocalizedContent<ProjectContentRecords> = {
+  en: localizeProjectRecords("en"),
+  vi: localizeProjectRecords("vi"),
+};
+
+const localizedProjectsBySlug: LocalizedContent<ProjectContentBySlug> = {
+  en: createProjectContentBySlug(localizedProjectRecords.en),
+  vi: createProjectContentBySlug(localizedProjectRecords.vi),
+};
+
+export const PROJECTS_CONTENT = {
+  en: {
+    projects: localizedProjectRecords.en,
+    projectsPage: {
+      hero: {
+        eyebrow: "Projects",
+        headline:
+          "Selected work across brand, campaign, and digital experience.",
+        supportingCopy:
+          "Each project begins with a different challenge, but the objective remains consistent: create clearer direction, stronger distinction, and work that contributes to meaningful outcomes.",
+        disclosure:
+          "The projects below are temporary structural examples and must be replaced with approved case-study content before launch.",
+      },
+      collection: {
+        headline: "Project Collection",
+        projects: localizedProjectRecords.en,
+      },
+      cta: {
+        eyebrow: "Start a Project",
+        headline: "Looking for a partner to connect direction with delivery?",
+        supportingCopy:
+          "Tell us about the challenge, the team, and what needs to change. We will help define the right way forward.",
+        primaryCta: "Discuss Your Project",
+      },
+    },
+    projectDetail: {
+      hero: {
+        client: "Client",
+        services: "Services",
+        placeholderDisclosure:
+          "This case study is temporary structural content and must be replaced with approved project information before launch.",
+      },
+      overview: {
+        heading: "Project Overview",
+        client: "Client",
+        industry: "Industry",
+        services: "Services",
+        deliverables: "Deliverables",
+      },
+      story: {
+        challengeEyebrow: "The Challenge",
+        challengeTitle: "Understanding the real problem",
+        approachEyebrow: "The Approach",
+        approachTitle: "Building one connected direction",
+      },
+      gallery: {
+        heading: "Project Gallery",
+      },
+      outcome: {
+        heading: "Outcome Direction",
+        verifiedResultsNote:
+          "Verified project results will be added only after client approval.",
+      },
+      next: {
+        heading: "Continue Exploring",
+        nextProjectCta: "View Next Project",
+        allProjectsCta: "View All Projects",
+      },
+    },
+  },
+  vi: {
+    projects: localizedProjectRecords.vi,
+    projectsPage: {
+      hero: {
+        eyebrow: "Dự án",
+        headline:
+          "Những dự án tiêu biểu về thương hiệu, chiến dịch và trải nghiệm số.",
+        supportingCopy:
+          "Mỗi dự án bắt đầu từ một thách thức khác nhau, nhưng mục tiêu luôn nhất quán: tạo định hướng rõ ràng hơn, dấu ấn khác biệt hơn và những giá trị có ý nghĩa.",
+        disclosure:
+          "Các dự án bên dưới chỉ là nội dung cấu trúc tạm thời và phải được thay thế bằng case study đã được phê duyệt trước khi ra mắt.",
+      },
+      collection: {
+        headline: "Danh sách dự án",
+        projects: localizedProjectRecords.vi,
+      },
+      cta: {
+        eyebrow: "Bắt đầu dự án",
+        headline:
+          "Bạn đang tìm một đối tác kết nối định hướng với triển khai?",
+        supportingCopy:
+          "Hãy chia sẻ bài toán, đội ngũ và điều cần thay đổi. Chúng tôi sẽ cùng xác định hướng đi phù hợp.",
+        primaryCta: "Trao đổi về dự án",
+      },
+    },
+    projectDetail: {
+      hero: {
+        client: "Khách hàng",
+        services: "Dịch vụ",
+        placeholderDisclosure:
+          "Case study này là nội dung cấu trúc tạm thời và phải được thay thế bằng thông tin dự án đã được phê duyệt trước khi ra mắt.",
+      },
+      overview: {
+        heading: "Tổng quan dự án",
+        client: "Khách hàng",
+        industry: "Lĩnh vực",
+        services: "Dịch vụ",
+        deliverables: "Hạng mục bàn giao",
+      },
+      story: {
+        challengeEyebrow: "Thách thức",
+        challengeTitle: "Hiểu đúng bài toán cốt lõi",
+        approachEyebrow: "Cách tiếp cận",
+        approachTitle: "Xây dựng một định hướng kết nối",
+      },
+      gallery: {
+        heading: "Không gian dự án",
+      },
+      outcome: {
+        heading: "Định hướng kết quả",
+        verifiedResultsNote:
+          "Kết quả dự án đã được xác minh chỉ được bổ sung sau khi có sự phê duyệt của khách hàng.",
+      },
+      next: {
+        heading: "Tiếp tục khám phá",
+        nextProjectCta: "Xem dự án tiếp theo",
+        allProjectsCta: "Xem tất cả dự án",
+      },
+    },
+  },
+} satisfies LocalizedContent<ProjectsLocaleContent>;
+
+export function isProjectSlug(slug: string): slug is ProjectSlug {
+  return PROJECT_SLUGS.includes(slug as ProjectSlug);
+}
+
+export function getProjectsPageContent(locale: Locale): ProjectsPageContent {
+  return PROJECTS_CONTENT[locale].projectsPage;
+}
+
+export function getProjectDetail(
+  locale: Locale,
+  slug: string,
+): ProjectDetailContent | undefined {
   if (!isProjectSlug(slug)) {
     return undefined;
   }
 
-  return projectPlaceholders.find((project) => project.slug === slug);
+  return localizedProjectsBySlug[locale][slug];
 }
 
-export function getNextProject(project: ProjectPlaceholder) {
-  return getProjectBySlug(project.nextProjectSlug);
+export function getNextProject(
+  locale: Locale,
+  slug: ProjectSlug,
+): ProjectDetailContent {
+  return localizedProjectsBySlug[locale][
+    localizedProjectsBySlug[locale][slug].nextProjectSlug
+  ];
 }

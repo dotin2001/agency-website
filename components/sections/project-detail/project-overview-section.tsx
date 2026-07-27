@@ -2,50 +2,31 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
-import type {
-  Locale,
-  LocalizedProjectDetail,
-} from "@/lib/projects/project-placeholders";
+
+type ProjectOverviewContent = {
+  client: string;
+  deliverables: readonly [string, string, string, string, string];
+  industry: string;
+  services: string;
+};
+
+type ProjectOverviewLabels = {
+  client: string;
+  deliverables: string;
+  heading: string;
+  industry: string;
+  services: string;
+};
 
 type ProjectOverviewSectionProps = {
-  locale: Locale;
-  project: LocalizedProjectDetail;
-};
-
-const headings: Record<Locale, string> = {
-  en: "Project Overview",
-  vi: "Tổng quan dự án",
-};
-
-const labels: Record<
-  Locale,
-  {
-    client: string;
-    deliverables: string;
-    industry: string;
-    services: string;
-  }
-> = {
-  en: {
-    client: "Client",
-    industry: "Industry",
-    services: "Services",
-    deliverables: "Deliverables",
-  },
-  vi: {
-    client: "Khách hàng",
-    industry: "Lĩnh vực",
-    services: "Dịch vụ",
-    deliverables: "Hạng mục bàn giao",
-  },
+  labels: ProjectOverviewLabels;
+  project: ProjectOverviewContent;
 };
 
 export function ProjectOverviewSection({
-  locale,
+  labels,
   project,
 }: Readonly<ProjectOverviewSectionProps>) {
-  const copy = labels[locale];
-
   return (
     <Section
       aria-labelledby="project-overview-heading"
@@ -62,7 +43,7 @@ export function ProjectOverviewSection({
               className="max-w-3xl text-3xl font-semibold tracking-normal text-[var(--color-text-primary)] sm:text-4xl"
               id="project-overview-heading"
             >
-              {headings[locale]}
+              {labels.heading}
             </h2>
           </Stack>
 
@@ -70,7 +51,7 @@ export function ProjectOverviewSection({
             <dl className="grid gap-5 border-l border-[var(--color-border-default)] pl-5 sm:grid-cols-3">
               <div>
                 <dt className="text-sm font-medium text-[var(--color-text-primary)]">
-                  {copy.client}
+                  {labels.client}
                 </dt>
                 <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
                   {project.client}
@@ -78,7 +59,7 @@ export function ProjectOverviewSection({
               </div>
               <div>
                 <dt className="text-sm font-medium text-[var(--color-text-primary)]">
-                  {copy.industry}
+                  {labels.industry}
                 </dt>
                 <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
                   {project.industry}
@@ -86,7 +67,7 @@ export function ProjectOverviewSection({
               </div>
               <div>
                 <dt className="text-sm font-medium text-[var(--color-text-primary)]">
-                  {copy.services}
+                  {labels.services}
                 </dt>
                 <dd className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
                   {project.services}
@@ -96,7 +77,7 @@ export function ProjectOverviewSection({
 
             <div className="border-t border-[var(--color-border-default)] pt-6">
               <h3 className="text-sm font-medium text-[var(--color-text-primary)]">
-                {copy.deliverables}
+                {labels.deliverables}
               </h3>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {project.deliverables.map((deliverable) => (
