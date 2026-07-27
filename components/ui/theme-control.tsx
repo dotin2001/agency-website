@@ -2,35 +2,20 @@
 
 import type { ThemePreference } from "@/app/theme-provider";
 import { useTheme } from "@/app/theme-provider";
-
-type Locale = "en" | "vi";
-
-const labels = {
-  en: {
-    theme: "Theme",
-    system: "System",
-    light: "Light",
-    dark: "Dark",
-  },
-  vi: {
-    theme: "Giao diện",
-    system: "Hệ thống",
-    light: "Sáng",
-    dark: "Tối",
-  },
-} as const;
+import type { SiteThemeControlContent } from "@/lib/content/site";
 
 function isThemePreference(value: string): value is ThemePreference {
   return value === "system" || value === "light" || value === "dark";
 }
 
-export function ThemeControl({ locale }: Readonly<{ locale: Locale }>) {
+export function ThemeControl({
+  content,
+}: Readonly<{ content: SiteThemeControlContent }>) {
   const { preference, setPreference } = useTheme();
-  const copy = labels[locale];
 
   return (
     <label className="flex min-h-11 items-center gap-2 text-sm text-[var(--color-text-secondary)]">
-      <span>{copy.theme}</span>
+      <span>{content.label}</span>
       <select
         className="min-h-10 rounded-md border border-[var(--color-border-default)] bg-[var(--color-bg-page)] px-3 text-sm text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
         value={preference}
@@ -42,9 +27,9 @@ export function ThemeControl({ locale }: Readonly<{ locale: Locale }>) {
           }
         }}
       >
-        <option value="system">{copy.system}</option>
-        <option value="light">{copy.light}</option>
-        <option value="dark">{copy.dark}</option>
+        <option value="system">{content.systemLabel}</option>
+        <option value="light">{content.lightLabel}</option>
+        <option value="dark">{content.darkLabel}</option>
       </select>
     </label>
   );

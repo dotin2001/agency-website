@@ -1,21 +1,11 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useLanguage } from "@/app/[locale]/language-provider";
-
-type Locale = "en" | "vi";
-
-const labels = {
-  en: {
-    language: "Language",
-  },
-  vi: {
-    language: "Ngôn ngữ",
-  },
-} as const;
+import type { SiteLanguageSwitcherContent } from "@/lib/content/site";
+import { SUPPORTED_LOCALES, type Locale } from "@/lib/i18n/locales";
 
 function isLocale(value: string): value is Locale {
-  return value === "en" || value === "vi";
+  return SUPPORTED_LOCALES.includes(value as Locale);
 }
 
 function replaceLocaleSegment(pathname: string, nextLocale: Locale) {
@@ -29,23 +19,27 @@ function replaceLocaleSegment(pathname: string, nextLocale: Locale) {
   return segments.join("/") || `/${nextLocale}`;
 }
 
-export function LanguageSwitcher() {
-  const { locale } = useLanguage();
+export function LanguageSwitcher({
+  content,
+  currentLocale,
+}: Readonly<{
+  content: SiteLanguageSwitcherContent;
+  currentLocale: Locale;
+}>) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const copy = labels[locale];
 
   return (
     <label className="flex min-h-11 items-center gap-2 text-sm text-[var(--color-text-secondary)]">
-      <span>{copy.language}</span>
+      <span>{content.label}</span>
       <select
         className="min-h-10 rounded-md border border-[var(--color-border-default)] bg-[var(--color-bg-page)] px-3 text-sm text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
-        value={locale}
+        value={currentLocale}
         onChange={(event) => {
           const nextLocale = event.target.value;
 
-          if (!isLocale(nextLocale) || nextLocale === locale) {
+          if (!isLocale(nextLocale) || nextLocale === currentLocale) {
             return;
           }
 
@@ -54,8 +48,8 @@ export function LanguageSwitcher() {
           router.push(queryString ? `${nextPath}?${queryString}` : nextPath);
         }}
       >
-        <option value="en">English</option>
-        <option value="vi">Tiếng Việt</option>
+        <option value="en">{content.englishLabel}</option>
+        <option value="vi">{content.vietnameseLabel}</option>
       </select>
     </label>
   );

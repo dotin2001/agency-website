@@ -4,8 +4,13 @@ import Link from "next/link";
 import { Suspense, useState } from "react";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { ThemeControl } from "@/components/ui/theme-control";
-
-type Locale = "en" | "vi";
+import type {
+  SiteHeaderContent,
+  SiteLanguageSwitcherContent,
+  SiteThemeControlContent,
+} from "@/lib/content/site";
+import type { CallToActionContent } from "@/lib/content/types";
+import type { Locale } from "@/lib/i18n/locales";
 
 type NavigationItem = {
   href: string;
@@ -13,36 +18,28 @@ type NavigationItem = {
   emphasized?: boolean;
 };
 
-const labels = {
-  en: {
-    contact: "Start a Project",
-    language: "Language",
-    openMenu: "Open menu",
-    closeMenu: "Close menu",
-    navigation: "Mobile navigation",
-  },
-  vi: {
-    contact: "Bắt đầu dự án",
-    language: "Ngôn ngữ",
-    openMenu: "Mở menu",
-    closeMenu: "Đóng menu",
-    navigation: "Điều hướng di động",
-  },
-} as const;
-
 export function MobileMenu({
-  locale,
+  content,
+  currentLocale,
+  homeLink,
+  languageSwitcher,
   navigationItems,
+  primaryCta,
+  themeControl,
 }: Readonly<{
-  locale: Locale;
-  navigationItems: NavigationItem[];
+  content: SiteHeaderContent;
+  currentLocale: Locale;
+  homeLink: CallToActionContent;
+  languageSwitcher: SiteLanguageSwitcherContent;
+  navigationItems: readonly NavigationItem[];
+  primaryCta: CallToActionContent;
+  themeControl: SiteThemeControlContent;
 }>) {
   const [isOpen, setIsOpen] = useState(false);
-  const copy = labels[locale];
   const menuId = "site-mobile-menu";
   const languageFallback = (
     <span className="min-h-11 text-sm text-[var(--color-text-secondary)]">
-      {copy.language}
+      {languageSwitcher.label}
     </span>
   );
 
@@ -55,16 +52,25 @@ export function MobileMenu({
         aria-controls={menuId}
         onClick={() => setIsOpen((current) => !current)}
       >
-        {isOpen ? copy.closeMenu : copy.openMenu}
+        {isOpen ? content.closeMenuLabel : content.openMenuLabel}
       </button>
 
       {isOpen ? (
         <nav
           id={menuId}
           className="absolute left-4 right-4 top-full z-10 mt-3 rounded-md border border-[var(--color-border-default)] bg-[var(--color-bg-page)] p-4 shadow-sm"
-          aria-label={copy.navigation}
+          aria-label={content.mobileNavigationLabel}
         >
           <ul className="flex flex-col gap-2">
+            <li>
+              <Link
+                className="block min-h-11 rounded-md px-3 py-2 text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+                href={homeLink.href}
+                onClick={() => setIsOpen(false)}
+              >
+                {homeLink.label}
+              </Link>
+            </li>
             {navigationItems.map((item) => (
               <li key={item.href}>
                 <Link
@@ -83,15 +89,18 @@ export function MobileMenu({
           </ul>
           <Link
             className="mt-3 flex min-h-11 items-center justify-center rounded-md border border-[var(--color-brand-primary)] px-4 text-sm font-medium text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
-            href={`/${locale}/contact`}
+            href={primaryCta.href}
             onClick={() => setIsOpen(false)}
           >
-            {copy.contact}
+            {primaryCta.label}
           </Link>
           <div className="mt-4 grid gap-3 border-t border-[var(--color-border-default)] pt-4">
-            <ThemeControl locale={locale} />
+            <ThemeControl content={themeControl} />
             <Suspense fallback={languageFallback}>
-              <LanguageSwitcher />
+              <LanguageSwitcher
+                content={languageSwitcher}
+                currentLocale={currentLocale}
+              />
             </Suspense>
           </div>
         </nav>
