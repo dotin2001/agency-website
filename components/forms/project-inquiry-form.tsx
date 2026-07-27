@@ -1,128 +1,10 @@
 "use client";
 
 import { type FormEvent, useRef, useState } from "react";
-
-type Locale = "en" | "vi";
-
-type SelectOption = {
-  label: string;
-  value: string;
-};
-
-type ProjectInquiryFormCopy = {
-  budgetOptions: readonly SelectOption[];
-  consentLabel: string;
-  detailsHelper: string;
-  fieldRequired: string;
-  fields: {
-    budget: string;
-    company: string;
-    consent: string;
-    details: string;
-    email: string;
-    name: string;
-    projectType: string;
-    timeline: string;
-  };
-  optional: string;
-  projectTypeOptions: readonly SelectOption[];
-  submitLabel: string;
-  successPreview: string;
-  timelineOptions: readonly SelectOption[];
-};
-
-const projectInquiryFormCopy: Record<Locale, ProjectInquiryFormCopy> = {
-  en: {
-    fields: {
-      name: "Your name",
-      email: "Work email",
-      company: "Company or organization",
-      projectType: "What do you need help with?",
-      budget: "Estimated budget",
-      timeline: "Target timeline",
-      details: "Tell us about the project",
-      consent: "Consent",
-    },
-    detailsHelper:
-      "Include the challenge, priorities, audience, existing materials, and what success should look like.",
-    fieldRequired: "Required",
-    optional: "Optional",
-    projectTypeOptions: [
-      { label: "Brand strategy and identity", value: "brand" },
-      { label: "Creative campaign", value: "campaign" },
-      { label: "Website or digital experience", value: "digital" },
-      { label: "Content and social", value: "content" },
-      { label: "Media and performance", value: "performance" },
-      { label: "Integrated project", value: "integrated" },
-      { label: "Something else", value: "other" },
-    ],
-    budgetOptions: [
-      { label: "Under $10,000", value: "under-10k" },
-      { label: "$10,000–$25,000", value: "10k-25k" },
-      { label: "$25,000–$50,000", value: "25k-50k" },
-      { label: "$50,000–$100,000", value: "50k-100k" },
-      { label: "Over $100,000", value: "over-100k" },
-      { label: "Not defined yet", value: "undefined" },
-    ],
-    timelineOptions: [
-      { label: "As soon as possible", value: "asap" },
-      { label: "Within 1–2 months", value: "1-2-months" },
-      { label: "Within 3–6 months", value: "3-6-months" },
-      { label: "More than 6 months", value: "over-6-months" },
-      { label: "Still exploring", value: "exploring" },
-    ],
-    consentLabel:
-      "I understand that this form is currently a non-submitting interface preview.",
-    submitLabel: "Prepare Inquiry",
-    successPreview:
-      "Your inquiry is ready for review. Submission delivery will be enabled before launch.",
-  },
-  vi: {
-    fields: {
-      name: "Tên của bạn",
-      email: "Email công việc",
-      company: "Công ty hoặc tổ chức",
-      projectType: "Bạn cần hỗ trợ về lĩnh vực nào?",
-      budget: "Ngân sách dự kiến",
-      timeline: "Thời gian dự kiến",
-      details: "Chia sẻ về dự án",
-      consent: "Xác nhận",
-    },
-    detailsHelper:
-      "Hãy chia sẻ bài toán, ưu tiên, đối tượng, tài liệu hiện có và hình dung về kết quả mong muốn.",
-    fieldRequired: "Bắt buộc",
-    optional: "Không bắt buộc",
-    projectTypeOptions: [
-      { label: "Chiến lược và nhận diện thương hiệu", value: "brand" },
-      { label: "Chiến dịch sáng tạo", value: "campaign" },
-      { label: "Website hoặc trải nghiệm số", value: "digital" },
-      { label: "Nội dung và mạng xã hội", value: "content" },
-      { label: "Media và hiệu quả", value: "performance" },
-      { label: "Dự án tích hợp", value: "integrated" },
-      { label: "Nhu cầu khác", value: "other" },
-    ],
-    budgetOptions: [
-      { label: "Dưới $10,000", value: "under-10k" },
-      { label: "$10,000–$25,000", value: "10k-25k" },
-      { label: "$25,000–$50,000", value: "25k-50k" },
-      { label: "$50,000–$100,000", value: "50k-100k" },
-      { label: "Trên $100,000", value: "over-100k" },
-      { label: "Chưa xác định", value: "undefined" },
-    ],
-    timelineOptions: [
-      { label: "Sớm nhất có thể", value: "asap" },
-      { label: "Trong 1–2 tháng", value: "1-2-months" },
-      { label: "Trong 3–6 tháng", value: "3-6-months" },
-      { label: "Trên 6 tháng", value: "over-6-months" },
-      { label: "Đang tìm hiểu", value: "exploring" },
-    ],
-    consentLabel:
-      "Tôi hiểu rằng biểu mẫu hiện chỉ là bản xem trước giao diện và chưa gửi dữ liệu.",
-    submitLabel: "Chuẩn bị nội dung",
-    successPreview:
-      "Nội dung của bạn đã sẵn sàng để kiểm tra. Chức năng gửi sẽ được kích hoạt trước khi ra mắt.",
-  },
-};
+import type {
+  ContactFormSectionContent,
+  ContactPageContent,
+} from "@/lib/content/contact";
 
 const baseFieldClasses =
   "min-h-12 w-full rounded-md border border-[var(--color-border-default)] bg-[var(--color-bg-page)] px-3 py-2 text-base text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]";
@@ -157,14 +39,36 @@ function FieldLabel({
   );
 }
 
-export function ProjectInquiryForm({ locale }: Readonly<{ locale: Locale }>) {
+type ProjectInquiryFormProps = Readonly<{
+  content: ContactFormSectionContent;
+  fields: ContactPageContent["fields"];
+}>;
+
+function getFieldMeta(
+  field: ContactPageContent["fields"][number],
+  content: ContactFormSectionContent,
+) {
+  return field.required
+    ? content.requiredIndicatorText
+    : content.optionalIndicatorText;
+}
+
+export function ProjectInquiryForm({
+  content,
+  fields,
+}: ProjectInquiryFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [previewCount, setPreviewCount] = useState(0);
-  const copy = projectInquiryFormCopy[locale];
-  const projectTypeDefault =
-    locale === "vi" ? "Chọn loại dự án" : "Select a project type";
-  const budgetDefault = locale === "vi" ? "Chọn khoảng ngân sách" : "Select a range";
-  const timelineDefault = locale === "vi" ? "Chọn thời gian" : "Select a timeline";
+  const [
+    nameField,
+    emailField,
+    companyField,
+    projectTypeField,
+    budgetField,
+    timelineField,
+    detailsField,
+    consentField,
+  ] = fields;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -194,72 +98,79 @@ export function ProjectInquiryForm({ locale }: Readonly<{ locale: Locale }>) {
       <div className="grid gap-5 md:grid-cols-2">
         <div className="grid gap-2">
           <FieldLabel
-            htmlFor="contact-name"
-            meta={copy.fieldRequired}
+            htmlFor={nameField.id}
+            meta={getFieldMeta(nameField, content)}
           >
-            {copy.fields.name}
+            {nameField.label}
           </FieldLabel>
           <input
-            autoComplete="name"
+            autoComplete={nameField.autoComplete}
             className={baseFieldClasses}
-            id="contact-name"
-            maxLength={100}
-            name="name"
-            required
-            type="text"
+            id={nameField.id}
+            maxLength={nameField.maxLength}
+            name={nameField.name}
+            required={nameField.required}
+            type={nameField.inputType}
           />
         </div>
 
         <div className="grid gap-2">
           <FieldLabel
-            htmlFor="contact-email"
-            meta={copy.fieldRequired}
+            htmlFor={emailField.id}
+            meta={getFieldMeta(emailField, content)}
           >
-            {copy.fields.email}
+            {emailField.label}
           </FieldLabel>
           <input
-            autoComplete="email"
+            autoComplete={emailField.autoComplete}
             className={baseFieldClasses}
-            id="contact-email"
-            maxLength={254}
-            name="email"
-            required
-            type="email"
-          />
-        </div>
-
-        <div className="grid gap-2">
-          <FieldLabel htmlFor="contact-company" meta={copy.optional}>
-            {copy.fields.company}
-          </FieldLabel>
-          <input
-            autoComplete="organization"
-            className={baseFieldClasses}
-            id="contact-company"
-            maxLength={150}
-            name="company"
-            type="text"
+            id={emailField.id}
+            maxLength={emailField.maxLength}
+            name={emailField.name}
+            required={emailField.required}
+            type={emailField.inputType}
           />
         </div>
 
         <div className="grid gap-2">
           <FieldLabel
-            htmlFor="contact-project-type"
-            meta={copy.fieldRequired}
+            htmlFor={companyField.id}
+            meta={getFieldMeta(companyField, content)}
           >
-            {copy.fields.projectType}
+            {companyField.label}
+          </FieldLabel>
+          <input
+            autoComplete={companyField.autoComplete}
+            className={baseFieldClasses}
+            id={companyField.id}
+            maxLength={companyField.maxLength}
+            name={companyField.name}
+            required={companyField.required}
+            type={companyField.inputType}
+          />
+        </div>
+
+        <div className="grid gap-2">
+          <FieldLabel
+            htmlFor={projectTypeField.id}
+            meta={getFieldMeta(projectTypeField, content)}
+          >
+            {projectTypeField.label}
           </FieldLabel>
           <select
             className={baseFieldClasses}
             defaultValue=""
-            id="contact-project-type"
-            name="projectType"
-            required
+            id={projectTypeField.id}
+            name={projectTypeField.name}
+            required={projectTypeField.required}
           >
-            <option disabled value="">
-              {projectTypeDefault}
+            <option
+              disabled={projectTypeField.defaultOption.disabled}
+              value={projectTypeField.defaultOption.value}
+            >
+              {projectTypeField.defaultOption.label}
             </option>
-            {copy.projectTypeOptions.map((option) => (
+            {projectTypeField.options.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -268,19 +179,26 @@ export function ProjectInquiryForm({ locale }: Readonly<{ locale: Locale }>) {
         </div>
 
         <div className="grid gap-2">
-          <FieldLabel htmlFor="contact-budget" meta={copy.optional}>
-            {copy.fields.budget}
+          <FieldLabel
+            htmlFor={budgetField.id}
+            meta={getFieldMeta(budgetField, content)}
+          >
+            {budgetField.label}
           </FieldLabel>
           <select
             className={baseFieldClasses}
             defaultValue=""
-            id="contact-budget"
-            name="budget"
+            id={budgetField.id}
+            name={budgetField.name}
+            required={budgetField.required}
           >
-            <option disabled value="">
-              {budgetDefault}
+            <option
+              disabled={budgetField.defaultOption.disabled}
+              value={budgetField.defaultOption.value}
+            >
+              {budgetField.defaultOption.label}
             </option>
-            {copy.budgetOptions.map((option) => (
+            {budgetField.options.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -289,19 +207,26 @@ export function ProjectInquiryForm({ locale }: Readonly<{ locale: Locale }>) {
         </div>
 
         <div className="grid gap-2">
-          <FieldLabel htmlFor="contact-timeline" meta={copy.optional}>
-            {copy.fields.timeline}
+          <FieldLabel
+            htmlFor={timelineField.id}
+            meta={getFieldMeta(timelineField, content)}
+          >
+            {timelineField.label}
           </FieldLabel>
           <select
             className={baseFieldClasses}
             defaultValue=""
-            id="contact-timeline"
-            name="timeline"
+            id={timelineField.id}
+            name={timelineField.name}
+            required={timelineField.required}
           >
-            <option disabled value="">
-              {timelineDefault}
+            <option
+              disabled={timelineField.defaultOption.disabled}
+              value={timelineField.defaultOption.value}
+            >
+              {timelineField.defaultOption.label}
             </option>
-            {copy.timelineOptions.map((option) => (
+            {timelineField.options.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -312,44 +237,44 @@ export function ProjectInquiryForm({ locale }: Readonly<{ locale: Locale }>) {
 
       <div className="grid gap-2">
         <FieldLabel
-          htmlFor="contact-details"
-          meta={copy.fieldRequired}
+          htmlFor={detailsField.id}
+          meta={getFieldMeta(detailsField, content)}
         >
-          {copy.fields.details}
+          {detailsField.label}
         </FieldLabel>
         <textarea
-          aria-describedby="contact-details-helper"
+          aria-describedby={`${detailsField.id}-helper`}
           className={`${baseFieldClasses} min-h-48 resize-y leading-7`}
-          id="contact-details"
-          maxLength={2000}
-          minLength={20}
-          name="details"
-          required
-          rows={8}
+          id={detailsField.id}
+          maxLength={detailsField.maxLength}
+          minLength={detailsField.minLength}
+          name={detailsField.name}
+          required={detailsField.required}
+          rows={detailsField.rows}
         />
         <p
           className="text-sm leading-6 text-[var(--color-text-secondary)]"
-          id="contact-details-helper"
+          id={`${detailsField.id}-helper`}
         >
-          {copy.detailsHelper}
+          {detailsField.helperText}
         </p>
       </div>
 
       <div className="flex gap-3 border-t border-[var(--color-border-default)] pt-5">
         <input
           className="mt-1 h-5 w-5 shrink-0 accent-[var(--color-brand-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
-          id="contact-consent"
-          name="consent"
-          required
-          type="checkbox"
+          id={consentField.id}
+          name={consentField.name}
+          required={consentField.required}
+          type={consentField.type}
         />
         <label
           className="text-sm leading-6 text-[var(--color-text-primary)]"
-          htmlFor="contact-consent"
+          htmlFor={consentField.id}
         >
-          {copy.consentLabel}{" "}
+          {consentField.label}{" "}
           <span className="text-[var(--color-text-secondary)]">
-            {copy.fieldRequired}
+            {content.requiredIndicatorText}
           </span>
         </label>
       </div>
@@ -359,7 +284,7 @@ export function ProjectInquiryForm({ locale }: Readonly<{ locale: Locale }>) {
           className="inline-flex min-h-11 items-center justify-center rounded-md border border-[var(--color-button-primary-bg,var(--color-brand-primary))] bg-[var(--color-button-primary-bg,var(--color-brand-primary))] px-5 py-3 text-base font-medium tracking-normal text-[var(--color-button-primary-text,rgb(10,16,26))] hover:border-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
           type="submit"
         >
-          {copy.submitLabel}
+          {content.submitLabel}
         </button>
 
         {previewCount > 0 ? (
@@ -368,7 +293,7 @@ export function ProjectInquiryForm({ locale }: Readonly<{ locale: Locale }>) {
             key={previewCount}
             role="status"
           >
-            {copy.successPreview}
+            {content.previewMessage}
           </p>
         ) : null}
       </div>

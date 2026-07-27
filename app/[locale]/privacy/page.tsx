@@ -1,7 +1,7 @@
 import { PrivacyContentSection } from "@/components/sections/privacy/privacy-content-section";
 import { PrivacyHeroSection } from "@/components/sections/privacy/privacy-hero-section";
-
-type Locale = "en" | "vi";
+import { getPrivacyContent } from "@/lib/content/privacy";
+import type { Locale } from "@/lib/i18n/locales";
 
 export default async function PrivacyPage({
   params,
@@ -9,11 +9,12 @@ export default async function PrivacyPage({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+  const content = getPrivacyContent(locale as Locale);
 
   return (
     <>
-      <PrivacyHeroSection locale={locale as Locale} />
-      <PrivacyContentSection locale={locale as Locale} />
+      <PrivacyHeroSection content={content.hero} />
+      <PrivacyContentSection content={content.content} />
     </>
   );
 }
