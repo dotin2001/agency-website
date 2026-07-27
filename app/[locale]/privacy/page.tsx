@@ -1,8 +1,19 @@
-export default function PrivacyPage() {
+import { PrivacyContentSection } from "@/components/sections/privacy/privacy-content-section";
+import { PrivacyHeroSection } from "@/components/sections/privacy/privacy-hero-section";
+
+type Locale = "en" | "vi";
+
+export default async function PrivacyPage({
+  params,
+}: Readonly<{
+  params: Promise<{ locale: string }>;
+}>) {
+  const { locale } = await params;
+
   return (
-    <main>
-      <h1>Privacy</h1>
-      <p>This page is not implemented yet.</p>
-    </main>
+    <>
+      <PrivacyHeroSection locale={locale as Locale} />
+      <PrivacyContentSection locale={locale as Locale} />
+    </>
   );
 }
