@@ -4,45 +4,11 @@ import { Section } from "@/components/layout/section";
 import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
 import { ButtonLink } from "@/components/ui/button-link";
+import type { HomeFinalCtaContent } from "@/lib/content/home";
 
-type Locale = "en" | "vi";
-
-type FinalCtaCopy = {
-  eyebrow: string;
-  headline: string;
-  primaryCta: string;
-  secondaryCta: string;
-  supportingCopy: string;
-  supportingNote: string;
-};
-
-// Temporary localized homepage copy until the production content system is implemented.
-const finalCtaCopy: Record<Locale, FinalCtaCopy> = {
-  en: {
-    eyebrow: "Start the Next Chapter",
-    headline: "Have an ambitious idea? Let’s build what comes next.",
-    supportingCopy:
-      "Whether you are defining a new brand, launching a campaign, or creating a stronger digital experience, we can help turn the direction into meaningful work.",
-    primaryCta: "Start a Project",
-    secondaryCta: "Explore Our Work",
-    supportingNote:
-      "Strategy, creativity, technology, and performance—connected from the beginning.",
-  },
-  vi: {
-    eyebrow: "Bắt đầu chương tiếp theo",
-    headline: "Bạn có một ý tưởng lớn? Hãy cùng xây dựng bước tiếp theo.",
-    supportingCopy:
-      "Dù bạn đang định hình một thương hiệu mới, triển khai chiến dịch hay xây dựng trải nghiệm số khác biệt hơn, chúng tôi có thể giúp chuyển định hướng thành những giá trị thực tế.",
-    primaryCta: "Bắt đầu dự án",
-    secondaryCta: "Khám phá dự án",
-    supportingNote:
-      "Chiến lược, sáng tạo, công nghệ và hiệu quả—được kết nối ngay từ đầu.",
-  },
-};
-
-export function FinalCtaSection({ locale }: Readonly<{ locale: Locale }>) {
-  const copy = finalCtaCopy[locale];
-
+export function FinalCtaSection({
+  content,
+}: Readonly<{ content: HomeFinalCtaContent }>) {
   return (
     <Section
       aria-labelledby="home-final-cta-heading"
@@ -54,16 +20,16 @@ export function FinalCtaSection({ locale }: Readonly<{ locale: Locale }>) {
           <Split gap="xl" variant="media-content">
             <Stack className="max-w-4xl" gap="md">
               <p className="w-fit border-l-2 border-[var(--color-brand-primary)] pl-3 text-sm font-medium tracking-normal text-[var(--color-text-secondary)]">
-                {copy.eyebrow}
+                {content.eyebrow}
               </p>
               <h2
                 className="max-w-4xl text-4xl font-semibold leading-tight tracking-normal text-[var(--color-text-primary)] sm:text-5xl lg:text-6xl"
                 id="home-final-cta-heading"
               >
-                {copy.headline}
+                {content.headline}
               </h2>
               <p className="max-w-2xl text-base leading-7 text-[var(--color-text-secondary)] sm:text-lg sm:leading-8">
-                {copy.supportingCopy}
+                {content.supportingCopy}
               </p>
             </Stack>
 
@@ -73,26 +39,26 @@ export function FinalCtaSection({ locale }: Readonly<{ locale: Locale }>) {
             >
               <Cluster align="center" gap="sm">
                 <ButtonLink
-                  aria-label={copy.primaryCta}
+                  aria-label={content.primaryCta.label}
                   className="w-full sm:w-auto"
-                  href={`/${locale}/contact`}
+                  href={content.primaryCta.href}
                   size="large"
                 >
-                  {copy.primaryCta}
+                  {content.primaryCta.label}
                 </ButtonLink>
                 <ButtonLink
-                  aria-label={copy.secondaryCta}
+                  aria-label={content.secondaryCta.label}
                   className="w-full sm:w-auto"
-                  href={`/${locale}/projects`}
+                  href={content.secondaryCta.href}
                   size="large"
                   variant="secondary"
                 >
-                  {copy.secondaryCta}
+                  {content.secondaryCta.label}
                 </ButtonLink>
               </Cluster>
 
               <p className="max-w-md text-sm leading-6 text-[var(--color-text-secondary)]">
-                {copy.supportingNote}
+                {content.supportingNote}
               </p>
             </Stack>
           </Split>
