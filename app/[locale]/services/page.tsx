@@ -1,8 +1,21 @@
-export default function ServicesPage() {
+import { EngagementSection } from "@/components/sections/services/engagement-section";
+import { ServiceDisciplinesSection } from "@/components/sections/services/service-disciplines-section";
+import { ServicesHeroSection } from "@/components/sections/services/services-hero-section";
+
+type Locale = "en" | "vi";
+
+export default async function ServicesPage({
+  params,
+}: Readonly<{
+  params: Promise<{ locale: string }>;
+}>) {
+  const { locale } = await params;
+
   return (
-    <main>
-      <h1>Services</h1>
-      <p>This page is not implemented yet.</p>
-    </main>
+    <>
+      <ServicesHeroSection locale={locale as Locale} />
+      <ServiceDisciplinesSection locale={locale as Locale} />
+      <EngagementSection locale={locale as Locale} />
+    </>
   );
 }
