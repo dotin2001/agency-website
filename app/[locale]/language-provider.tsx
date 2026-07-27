@@ -1,8 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-
-type Locale = "en" | "vi";
+import type { Locale } from "@/lib/i18n/locales";
 
 type LanguageContextValue = {
   locale: Locale;
