@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectGallerySection } from "@/components/sections/project-detail/project-gallery-section";
 import { ProjectHeroSection } from "@/components/sections/project-detail/project-hero-section";
@@ -12,6 +13,7 @@ import {
   getProjectDetail,
 } from "@/lib/content/projects";
 import type { Locale } from "@/lib/i18n/locales";
+import { buildLocalizedMetadata } from "@/lib/seo/metadata";
 
 type ProjectDetailPageProps = Readonly<{
   params: Promise<{
@@ -29,6 +31,25 @@ export function generateStaticParams() {
       slug,
     })),
   );
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectDetailPageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const currentLocale = locale as Locale;
+  const project = getProjectDetail(currentLocale, slug);
+
+  if (!project) {
+    notFound();
+  }
+
+  return buildLocalizedMetadata({
+    description: project.summary,
+    locale: currentLocale,
+    routePath: `/projects/${project.slug}`,
+    title: `${project.title} — Charm Media`,
+  });
 }
 
 export default async function ProjectDetailPage({

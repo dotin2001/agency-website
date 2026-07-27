@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ChallengeSection } from "@/components/sections/home/challenge-section";
 import { FinalCtaSection } from "@/components/sections/home/final-cta-section";
 import { HeroSection } from "@/components/sections/home/hero-section";
@@ -8,6 +9,14 @@ import { TransformationSection } from "@/components/sections/home/transformation
 import { getHomeContent } from "@/lib/content/home";
 import type { CallToActionContent } from "@/lib/content/types";
 import type { Locale } from "@/lib/i18n/locales";
+import {
+  buildLocalizedMetadata,
+  getPrimaryRouteMetadataTitle,
+} from "@/lib/seo/metadata";
+
+type LocalePageProps = Readonly<{
+  params: Promise<{ locale: string }>;
+}>;
 
 function withLocale(locale: Locale, href: string) {
   const path = href.startsWith("/") ? href : `/${href}`;
@@ -25,11 +34,22 @@ function localizeCta(
   };
 }
 
-export default async function LocaleHomePage({
+export async function generateMetadata({
   params,
-}: Readonly<{
-  params: Promise<{ locale: string }>;
-}>) {
+}: LocalePageProps): Promise<Metadata> {
+  const { locale: localeParam } = await params;
+  const locale = localeParam as Locale;
+  const content = getHomeContent(locale);
+
+  return buildLocalizedMetadata({
+    description: content.hero.supportingCopy,
+    locale,
+    routePath: "/",
+    title: getPrimaryRouteMetadataTitle(locale, "home"),
+  });
+}
+
+export default async function LocaleHomePage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as Locale;
   const content = getHomeContent(locale);
