@@ -1,13 +1,18 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { useFrame } from "@react-three/fiber";
 import { HeroObject } from "@/components/three/hero-object";
 
 type PointerSnapshot = [number, number];
+type SceneRootProps = {
+  isCoarsePointer: boolean;
+  isCompactViewport: boolean;
+  isPageVisible: boolean;
+  prefersReducedMotion: boolean;
+};
 
 const neutralPointer: PointerSnapshot = [0, 0];
-const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
 const cameraDamping = 3.2;
 const settleThreshold = 0.0005;
 const pointerSubscribers = new Set<() => void>();
@@ -110,19 +115,6 @@ function subscribeToDocumentScroll(onStoreChange: () => void) {
   };
 }
 
-function subscribeToReducedMotion(onStoreChange: () => void) {
-  if (typeof window === "undefined") {
-    return () => {};
-  }
-
-  const mediaQuery = window.matchMedia(reducedMotionQuery);
-  mediaQuery.addEventListener("change", onStoreChange);
-
-  return () => {
-    mediaQuery.removeEventListener("change", onStoreChange);
-  };
-}
-
 function getPointerSnapshot() {
   return pointerSnapshot;
 }
@@ -139,43 +131,63 @@ function getServerScrollSnapshot() {
   return 0;
 }
 
-function getReducedMotionSnapshot() {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  return window.matchMedia(reducedMotionQuery).matches;
-}
-
-function getServerReducedMotionSnapshot() {
-  return false;
-}
-
-export function SceneRoot() {
+export function SceneRoot({
+  isCoarsePointer,
+  isCompactViewport,
+  isPageVisible,
+  prefersReducedMotion,
+}: Readonly<SceneRootProps>) {
+  const canTrackPointer =
+    !isCoarsePointer && !prefersReducedMotion && isPageVisible;
+  const canTrackScroll = !prefersReducedMotion && isPageVisible;
+  const cameraIntensity = isCompactViewport ? 0.4 : 1;
+  const objectIntensity = isCompactViewport ? 0.45 : 1;
+  const subscribeToPointer = useCallback(
+    (onStoreChange: () => void) =>
+      canTrackPointer
+        ? subscribeToDocumentPointer(onStoreChange)
+        : () => {},
+    [canTrackPointer],
+  );
+  const getActivePointerSnapshot = useCallback(
+    () => (canTrackPointer ? getPointerSnapshot() : neutralPointer),
+    [canTrackPointer],
+  );
+  const subscribeToScroll = useCallback(
+    (onStoreChange: () => void) =>
+      canTrackScroll
+        ? subscribeToDocumentScroll(onStoreChange)
+        : () => {},
+    [canTrackScroll],
+  );
+  const getActiveScrollSnapshot = useCallback(
+    () => (canTrackScroll ? getScrollSnapshot() : 0),
+    [canTrackScroll],
+  );
   const [pointerX, pointerY] = useSyncExternalStore(
-    subscribeToDocumentPointer,
-    getPointerSnapshot,
+    subscribeToPointer,
+    getActivePointerSnapshot,
     getServerPointerSnapshot,
   );
   const scrollProgress = useSyncExternalStore(
-    subscribeToDocumentScroll,
-    getScrollSnapshot,
+    subscribeToScroll,
+    getActiveScrollSnapshot,
     getServerScrollSnapshot,
   );
-  const prefersReducedMotion = useSyncExternalStore(
-    subscribeToReducedMotion,
-    getReducedMotionSnapshot,
-    getServerReducedMotionSnapshot,
-  );
-  const activeProgress = prefersReducedMotion ? 0 : scrollProgress;
+  const activeProgress = canTrackScroll ? scrollProgress : 0;
+  const isMotionEnabled = canTrackScroll && isPageVisible;
 
   useFrame((state, delta) => {
     const camera = state.camera;
-    const targetX = prefersReducedMotion ? 0 : activeProgress * 0.22;
-    const targetY = prefersReducedMotion ? 0 : activeProgress * -0.16;
-    const targetZ = prefersReducedMotion ? 4 : 4 + activeProgress * 0.55;
+    const targetX = isMotionEnabled ? activeProgress * 0.22 * cameraIntensity : 0;
+    const targetY = isMotionEnabled
+      ? activeProgress * -0.16 * cameraIntensity
+      : 0;
+    const targetZ = isMotionEnabled
+      ? 4 + activeProgress * 0.55 * cameraIntensity
+      : 4;
 
-    if (prefersReducedMotion) {
+    if (!isMotionEnabled) {
       camera.position.set(0, 0, 4);
       camera.lookAt(1.05, -0.12, 0);
       return;
@@ -208,13 +220,29 @@ export function SceneRoot() {
         position={[1.25, -0.2, 0]}
         rotation={[0.08, -0.24, 0.02]}
         scale={0.82}
-        interactionEnabled={!prefersReducedMotion}
+        interactionEnabled={isMotionEnabled}
         scrollProgress={activeProgress}
-        scrollTargetPosition={[-0.1, 0.14, 0.04]}
-        scrollTargetRotation={[0.06, -0.1, 0.04]}
-        scrollTargetScale={1.04}
-        targetPosition={[pointerX * 0.1, pointerY * 0.06, 0]}
-        targetRotation={[pointerY * 0.07, pointerX * 0.11, -pointerX * 0.03]}
+        scrollTargetPosition={[
+          -0.1 * objectIntensity,
+          0.14 * objectIntensity,
+          0.04 * objectIntensity,
+        ]}
+        scrollTargetRotation={[
+          0.06 * objectIntensity,
+          -0.1 * objectIntensity,
+          0.04 * objectIntensity,
+        ]}
+        scrollTargetScale={1 + 0.04 * objectIntensity}
+        targetPosition={[
+          pointerX * 0.1 * objectIntensity,
+          pointerY * 0.06 * objectIntensity,
+          0,
+        ]}
+        targetRotation={[
+          pointerY * 0.07 * objectIntensity,
+          pointerX * 0.11 * objectIntensity,
+          -pointerX * 0.03 * objectIntensity,
+        ]}
       />
     </>
   );
