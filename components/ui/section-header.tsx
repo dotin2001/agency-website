@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { ViewportReveal } from "@/components/motion/viewport-reveal";
 
 type SectionHeaderAlign = "start" | "center";
 type SectionHeaderLevel = "h1" | "h2" | "h3";
@@ -33,12 +34,14 @@ export function SectionHeader({
   className,
   description,
   eyebrow,
-  headingLevel: Heading = "h2",
+  headingLevel,
   title,
   ...props
 }: Readonly<SectionHeaderProps>) {
+  const Heading = headingLevel ?? "h2";
+
   return (
-    <div
+    <ViewportReveal
       className={cn("flex flex-col gap-4", alignClasses[align], className)}
       {...props}
     >
@@ -61,6 +64,6 @@ export function SectionHeader({
         </p>
       ) : null}
       {action ? <div>{action}</div> : null}
-    </div>
+    </ViewportReveal>
   );
 }

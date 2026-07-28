@@ -281,7 +281,7 @@ export function ProjectInquiryForm({
 
       <div className="flex flex-wrap items-center gap-4">
         <button
-          className="inline-flex min-h-11 items-center justify-center rounded-md border border-[var(--color-button-primary-bg,var(--color-brand-primary))] bg-[var(--color-button-primary-bg,var(--color-brand-primary))] px-5 py-3 text-base font-medium tracking-normal text-[var(--color-button-primary-text,rgb(10,16,26))] hover:border-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+          className="motion-interactive inline-flex min-h-11 items-center justify-center rounded-md border border-[var(--color-button-primary-bg,var(--color-brand-primary))] bg-[var(--color-button-primary-bg,var(--color-brand-primary))] px-5 py-3 text-base font-medium tracking-normal text-[var(--color-button-primary-text,rgb(10,16,26))] hover:border-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] motion-safe:hover:-translate-y-px"
           type="submit"
         >
           {content.submitLabel}

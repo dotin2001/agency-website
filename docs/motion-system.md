@@ -2,6 +2,18 @@
 
 Motion is planned and not implemented. Do not install Framer Motion, GSAP, ScrollTrigger, Lenis, or any other motion dependency until the relevant implementation step.
 
+## Current baseline implementation
+
+The current site uses a lightweight CSS and browser-API motion baseline only:
+
+- CSS duration, easing, and distance tokens in `app/globals.css`.
+- Hero load-in motion for headline content and CTA group.
+- Shared viewport-entry reveal for section headers and project cards.
+- Subtle interactive transitions for buttons, links, cards, and the mobile menu.
+- Reduced-motion fallbacks that remove non-essential transforms and animation timing.
+
+This baseline is intentionally restrained. It is not a substitute for future narrative timelines, scroll-linked storytelling, or advanced route orchestration.
+
 ## Purpose
 
 Motion should make the agency experience feel cinematic, clear, and responsive. It must support the homepage story, project case studies, navigation, media presentation, and conversion flows without delaying access to content or becoming required for comprehension.

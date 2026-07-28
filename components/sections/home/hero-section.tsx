@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Cluster } from "@/components/layout/cluster";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
@@ -18,21 +19,56 @@ export function HeroSection({
         <div className="grid gap-12 lg:min-h-[calc(100svh-12rem)] lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,1.05fr)] lg:items-center">
           <Stack className="max-w-3xl lg:max-w-2xl" gap="lg">
             <Stack gap="md">
-              <p className="w-fit border-l-2 border-[var(--color-brand-primary)] pl-3 text-sm font-medium tracking-normal text-[var(--color-text-secondary)]">
+              <p
+                className="motion-enter w-fit border-l-2 border-[var(--color-brand-primary)] pl-3 text-sm font-medium tracking-normal text-[var(--color-text-secondary)]"
+                style={
+                  {
+                    "--motion-enter-delay": "40ms",
+                    "--motion-enter-distance": "12px",
+                    "--motion-enter-duration": "320ms",
+                  } as CSSProperties
+                }
+              >
                 {content.eyebrow}
               </p>
               <h1
-                className="max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal text-[var(--color-text-primary)] sm:text-6xl lg:text-7xl"
+                className="motion-enter max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal text-[var(--color-text-primary)] sm:text-6xl lg:text-7xl"
                 id="home-hero-heading"
+                style={
+                  {
+                    "--motion-enter-delay": "90ms",
+                    "--motion-enter-distance": "18px",
+                  } as CSSProperties
+                }
               >
                 {content.headline}
               </h1>
-              <p className="max-w-2xl text-base leading-7 text-[var(--color-text-secondary)] sm:text-lg sm:leading-8">
+              <p
+                className="motion-enter max-w-2xl text-base leading-7 text-[var(--color-text-secondary)] sm:text-lg sm:leading-8"
+                style={
+                  {
+                    "--motion-enter-delay": "160ms",
+                    "--motion-enter-distance": "18px",
+                    "--motion-enter-duration": "360ms",
+                  } as CSSProperties
+                }
+              >
                 {content.supportingCopy}
               </p>
             </Stack>
 
-            <Cluster align="center" gap="sm">
+            <Cluster
+              align="center"
+              className="motion-enter"
+              gap="sm"
+              style={
+                {
+                  "--motion-enter-delay": "230ms",
+                  "--motion-enter-distance": "14px",
+                  "--motion-enter-duration": "320ms",
+                } as CSSProperties
+              }
+            >
               <ButtonLink
                 aria-label={content.primaryCta.label}
                 href={content.primaryCta.href}

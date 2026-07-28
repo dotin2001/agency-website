@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { LinkProps } from "next/link";
+import { ViewportReveal } from "@/components/motion/viewport-reveal";
 import { Stack } from "@/components/layout/stack";
 import { MediaFrame } from "@/components/ui/media-frame";
 
@@ -54,18 +55,22 @@ export function ProjectCard({
     <Link
       aria-label={`${caseStudyLabel}: ${title}`}
       className={cn(
-        "group block rounded-md border border-[var(--color-border-default)] bg-[var(--color-bg-page)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]",
+        "motion-interactive group block rounded-md border border-[var(--color-border-default)] bg-[var(--color-bg-page)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] motion-safe:hover:-translate-y-1 motion-safe:hover:border-[var(--color-brand-primary)] motion-safe:focus-visible:-translate-y-1",
         className,
       )}
       href={href}
     >
-      <article className="grid h-full gap-5 p-3 sm:p-4">
+      <ViewportReveal
+        className="h-full"
+        delayMs={Math.min(index * 70, 210)}
+      >
+        <article className="grid h-full gap-5 p-3 sm:p-4">
         <MediaFrame aspectRatio={index === 0 ? "widescreen" : "landscape"}>
           {/* Temporary CSS-only media placeholder until real project media and CMS assets exist. */}
           <div
             aria-hidden="true"
             className={cn(
-              "relative h-full w-full bg-[var(--color-bg-page)]",
+              "motion-interactive relative h-full w-full bg-[var(--color-bg-page)] motion-safe:group-hover:scale-[1.01]",
               pattern,
             )}
           >
@@ -106,7 +111,8 @@ export function ProjectCard({
             </p>
           </div>
         </Stack>
-      </article>
+        </article>
+      </ViewportReveal>
     </Link>
   );
 }

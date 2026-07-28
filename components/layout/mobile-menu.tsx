@@ -47,7 +47,7 @@ export function MobileMenu({
     <div className="lg:hidden">
       <button
         type="button"
-        className="min-h-11 rounded-md border border-[var(--color-border-default)] px-3 text-sm font-medium text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+        className="motion-interactive min-h-11 rounded-md border border-[var(--color-border-default)] px-3 text-sm font-medium text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] motion-safe:hover:-translate-y-px"
         aria-expanded={isOpen}
         aria-controls={menuId}
         onClick={() => setIsOpen((current) => !current)}
@@ -58,13 +58,13 @@ export function MobileMenu({
       {isOpen ? (
         <nav
           id={menuId}
-          className="absolute left-4 right-4 top-full z-10 mt-3 rounded-md border border-[var(--color-border-default)] bg-[var(--color-bg-page)] p-4 shadow-sm"
+          className="motion-menu-enter absolute left-4 right-4 top-full z-10 mt-3 rounded-md border border-[var(--color-border-default)] bg-[var(--color-bg-page)] p-4 shadow-sm"
           aria-label={content.mobileNavigationLabel}
         >
           <ul className="flex flex-col gap-2">
             <li>
               <Link
-                className="block min-h-11 rounded-md px-3 py-2 text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+                className="motion-interactive block min-h-11 rounded-md px-3 py-2 text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] hover:text-[var(--color-text-primary)] motion-safe:hover:translate-x-1"
                 href={homeLink.href}
                 onClick={() => setIsOpen(false)}
               >
@@ -76,8 +76,8 @@ export function MobileMenu({
                 <Link
                   className={
                     item.emphasized
-                      ? "block min-h-11 rounded-md px-3 py-2 font-medium text-[var(--color-text-primary)] underline decoration-[var(--color-brand-primary)] decoration-2 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
-                      : "block min-h-11 rounded-md px-3 py-2 text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+                      ? "motion-interactive block min-h-11 rounded-md px-3 py-2 font-medium text-[var(--color-text-primary)] underline decoration-[var(--color-brand-primary)] decoration-2 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] motion-safe:hover:translate-x-1"
+                      : "motion-interactive block min-h-11 rounded-md px-3 py-2 text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] hover:text-[var(--color-text-primary)] motion-safe:hover:translate-x-1"
                   }
                   href={item.href}
                   onClick={() => setIsOpen(false)}
@@ -88,7 +88,7 @@ export function MobileMenu({
             ))}
           </ul>
           <Link
-            className="mt-3 flex min-h-11 items-center justify-center rounded-md border border-[var(--color-brand-primary)] px-4 text-sm font-medium text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+            className="motion-interactive mt-3 flex min-h-11 items-center justify-center rounded-md border border-[var(--color-brand-primary)] px-4 text-sm font-medium text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] motion-safe:hover:-translate-y-px"
             href={primaryCta.href}
             onClick={() => setIsOpen(false)}
           >

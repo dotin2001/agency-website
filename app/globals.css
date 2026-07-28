@@ -9,6 +9,13 @@
   --color-text-secondary: rgb(71, 78, 92);
   --color-brand-primary: rgb(213, 187, 110);
   --color-border-default: rgb(214, 213, 205);
+  --motion-duration-fast: 160ms;
+  --motion-duration-base: 220ms;
+  --motion-duration-slow: 420ms;
+  --motion-ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-distance-sm: 8px;
+  --motion-distance-md: 18px;
   --background: var(--color-bg-page);
   --foreground: var(--color-text-primary);
 }
@@ -35,4 +42,76 @@ body {
   background: var(--color-bg-page);
   color: var(--color-text-primary);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes motion-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--motion-enter-distance, var(--motion-distance-md)), 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.motion-enter {
+  opacity: 0;
+  animation: motion-fade-up var(--motion-enter-duration, var(--motion-duration-slow))
+    var(--motion-ease-enter) forwards;
+  animation-delay: var(--motion-enter-delay, 0ms);
+}
+
+.motion-interactive {
+  transition-duration: var(--motion-duration-fast);
+  transition-property: background-color, border-color, color, opacity,
+    text-decoration-color, transform, box-shadow;
+  transition-timing-function: var(--motion-ease-standard);
+}
+
+.motion-menu-enter {
+  opacity: 0;
+  transform: translate3d(0, var(--motion-distance-sm), 0);
+  animation: motion-fade-up var(--motion-duration-base) var(--motion-ease-enter)
+    forwards;
+}
+
+.motion-reveal {
+  transition-delay: var(--reveal-delay, 0ms);
+  transition-duration: var(--motion-duration-slow);
+  transition-property: opacity, transform;
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.motion-reveal[data-reveal-state="hidden"] {
+  opacity: 0;
+  transform: translate3d(0, var(--motion-distance-md), 0);
+  will-change: opacity, transform;
+}
+
+.motion-reveal[data-reveal-state="visible"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-enter,
+  .motion-menu-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .motion-interactive,
+  .motion-reveal {
+    transition: none;
+  }
+
+  .motion-reveal[data-reveal-state="hidden"],
+  .motion-reveal[data-reveal-state="visible"] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
 }

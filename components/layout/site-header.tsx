@@ -49,7 +49,7 @@ export function SiteHeader({
     <header className="border-b border-[var(--color-border-default)] bg-[var(--color-bg-page)]">
       <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <Link
-          className="text-sm font-semibold tracking-wide text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+          className="motion-interactive text-sm font-semibold tracking-wide text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] hover:text-[var(--color-text-secondary)]"
           href={homeHref}
         >
           {brand.name}
@@ -60,7 +60,7 @@ export function SiteHeader({
           aria-label={content.navigationLabel}
         >
           <Link
-            className="rounded-md px-3 py-2 text-sm text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+            className="motion-interactive rounded-md px-3 py-2 text-sm text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] hover:text-[var(--color-text-primary)]"
             href={homeLink.href}
           >
             {homeLink.label}
@@ -69,8 +69,8 @@ export function SiteHeader({
             <Link
               className={
                 item.emphasized
-                  ? "rounded-md px-3 py-2 text-sm font-medium text-[var(--color-text-primary)] underline decoration-[var(--color-brand-primary)] decoration-2 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
-                  : "rounded-md px-3 py-2 text-sm text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+                  ? "motion-interactive rounded-md px-3 py-2 text-sm font-medium text-[var(--color-text-primary)] underline decoration-[var(--color-brand-primary)] decoration-2 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+                  : "motion-interactive rounded-md px-3 py-2 text-sm text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] hover:text-[var(--color-text-primary)]"
               }
               href={item.href}
               key={item.href}
@@ -89,7 +89,7 @@ export function SiteHeader({
             />
           </Suspense>
           <Link
-            className="inline-flex min-h-11 items-center rounded-md border border-[var(--color-brand-primary)] px-4 text-sm font-medium text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+            className="motion-interactive inline-flex min-h-11 items-center rounded-md border border-[var(--color-brand-primary)] px-4 text-sm font-medium text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] motion-safe:hover:-translate-y-px"
             href={primaryCta.href}
           >
             {primaryCta.label}
