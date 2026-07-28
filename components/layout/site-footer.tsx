@@ -44,11 +44,11 @@ export function SiteFooter({
 
         <div className="grid gap-8 sm:grid-cols-2">
           <nav aria-label={content.mainNavigationLabel}>
-            <ul className="grid gap-2">
+            <ul className="grid gap-3">
               {footerNavigationItems.map((item) => (
                 <li key={item.href}>
                   <Link
-                    className="text-sm text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+                    className="motion-interactive text-sm text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] hover:text-[var(--color-text-primary)]"
                     href={item.href}
                   >
                     {item.label}
@@ -58,7 +58,7 @@ export function SiteFooter({
               {legalLinks.map((item) => (
                 <li key={item.href}>
                   <Link
-                    className="text-sm text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
+                    className="motion-interactive text-sm text-[var(--color-text-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)] hover:text-[var(--color-text-primary)]"
                     href={item.href}
                   >
                     {item.label}
@@ -70,9 +70,14 @@ export function SiteFooter({
 
           <nav aria-label={content.socialLinksLabel}>
             {/* Placeholder social labels only; not final agency social links. */}
-            <ul className="grid gap-2 text-sm text-[var(--color-text-secondary)]">
+            <ul className="grid gap-3 text-sm text-[var(--color-text-secondary)]">
               {content.socialLabels.map((label) => (
-                <li key={label}>{label}</li>
+                <li
+                  className="w-fit rounded-full border border-[var(--color-border-default)] px-3 py-1.5"
+                  key={label}
+                >
+                  {label}
+                </li>
               ))}
             </ul>
           </nav>

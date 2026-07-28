@@ -381,6 +381,7 @@ export function ProjectMockVisual({
   const isPortrait = aspect === "portrait";
   const isWide = aspect === "wide" || aspect === "widescreen";
   const isCard = mode === "card";
+  const isGallery = mode === "gallery";
 
   return (
     <div
@@ -391,6 +392,9 @@ export function ProjectMockVisual({
       )}
     >
       <div className="absolute inset-0 bg-[var(--color-text-primary)]/[0.025]" />
+      {isGallery ? (
+        <div className="absolute inset-[2.5%] rounded-[0.8rem] border border-[var(--color-border-default)]/75 bg-[var(--color-text-primary)]/[0.015]" />
+      ) : null}
       <div
         className={cn(
           "absolute inset-[4%] rounded-[0.55rem] border border-[var(--color-border-default)]",
@@ -409,8 +413,18 @@ export function ProjectMockVisual({
       >
         {renderProjectVisual(projectSlug)}
       </div>
-      <div className="absolute left-[8%] top-[8%] h-px w-[28%] bg-[var(--color-brand-primary)]/70" />
-      <div className="absolute bottom-[8%] right-[8%] h-9 w-9 rounded-[0.45rem] border border-[var(--color-brand-primary)]/70" />
+      <div
+        className={cn(
+          "absolute left-[8%] top-[8%] h-px bg-[var(--color-brand-primary)]/70",
+          isGallery ? "w-[34%]" : "w-[28%]",
+        )}
+      />
+      <div
+        className={cn(
+          "absolute bottom-[8%] right-[8%] rounded-[0.45rem] border border-[var(--color-brand-primary)]/70",
+          isGallery ? "h-10 w-10" : "h-9 w-9",
+        )}
+      />
     </div>
   );
 }

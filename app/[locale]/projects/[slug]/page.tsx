@@ -79,12 +79,15 @@ export default async function ProjectDetailPage({
         body={project.challenge}
         eyebrow={labels.story.challengeEyebrow}
         index={2}
+        projectSlug={project.slug}
         title={labels.story.challengeTitle}
       />
       <ProjectStorySection
         body={project.approach}
         eyebrow={labels.story.approachEyebrow}
         index={3}
+        projectSlug={project.slug}
+        showVisual
         title={labels.story.approachTitle}
         tone="contrast"
       />

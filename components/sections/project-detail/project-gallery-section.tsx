@@ -1,5 +1,6 @@
 import type { ProjectSlug } from "@/lib/content/projects";
 import { Container } from "@/components/layout/container";
+import { ViewportReveal } from "@/components/motion/viewport-reveal";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
 import { ProjectGalleryFrame } from "@/components/ui/project-gallery-frame";
@@ -50,12 +51,14 @@ export function ProjectGallerySection({
     >
       <Container size="page">
         <Stack gap="xl">
-          <h2
-            className="max-w-3xl text-3xl font-semibold tracking-normal text-[var(--color-text-primary)] sm:text-4xl"
-            id="project-gallery-heading"
-          >
-            {labels.heading}
-          </h2>
+          <ViewportReveal>
+            <h2
+              className="max-w-3xl text-3xl font-semibold tracking-normal text-[var(--color-text-primary)] sm:text-4xl"
+              id="project-gallery-heading"
+            >
+              {labels.heading}
+            </h2>
+          </ViewportReveal>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-12 lg:items-start">
             {project.galleryItems.map((item, index) => (
               <ProjectGalleryFrame
