@@ -173,7 +173,20 @@ export function PersistentCanvas() {
         camera={{ position: [0, 0, 4], fov: 45 }}
         dpr={dpr}
         frameloop="demand"
-        gl={{ alpha: true, antialias: true }}
+        gl={{
+          alpha: true,
+          antialias: !(
+            capabilityProfile.isCompactViewport ||
+            capabilityProfile.isCoarsePointer ||
+            capabilityProfile.prefersReducedMotion
+          ),
+          powerPreference:
+            capabilityProfile.isCompactViewport ||
+            capabilityProfile.isCoarsePointer ||
+            capabilityProfile.prefersReducedMotion
+              ? "low-power"
+              : "high-performance",
+        }}
       >
         <SceneRoot
           isCoarsePointer={capabilityProfile.isCoarsePointer}

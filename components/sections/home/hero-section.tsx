@@ -3,6 +3,7 @@ import { Cluster } from "@/components/layout/cluster";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
+import { StoryChapterAnchor } from "@/components/three/story-chapter-anchor";
 import { ButtonLink } from "@/components/ui/button-link";
 import type { HomeHeroContent } from "@/lib/content/home";
 
@@ -15,6 +16,10 @@ export function HeroSection({
       className="relative overflow-hidden bg-transparent"
       spacing="chapter"
     >
+      <StoryChapterAnchor
+        chapter="hero"
+        className="h-[72vh] sm:h-[78vh]"
+      />
       <Container size="page">
         <div className="grid gap-12 lg:min-h-[calc(100svh-12rem)] lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,1.05fr)] lg:items-center">
           <Stack className="max-w-3xl lg:max-w-2xl" gap="lg">

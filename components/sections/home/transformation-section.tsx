@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
+import { StoryChapterAnchor } from "@/components/three/story-chapter-anchor";
 import { SectionHeader } from "@/components/ui/section-header";
 import type { HomeTransformationContent } from "@/lib/content/home";
 
@@ -19,6 +20,7 @@ export function TransformationSection({
       className="relative border-t border-[var(--color-border-default)] bg-[var(--color-bg-page)]"
       spacing="chapter"
     >
+      <StoryChapterAnchor chapter="transformation" />
       <Container size="page">
         <Stack gap="xl">
           <Split gap="xl" variant="content-media">

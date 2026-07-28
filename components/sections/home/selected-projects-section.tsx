@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
+import { StoryChapterAnchor } from "@/components/three/story-chapter-anchor";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ProjectCard } from "@/components/ui/project-card";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -31,6 +32,10 @@ export function SelectedProjectsSection({
       className="relative border-t border-[var(--color-border-default)] bg-[var(--color-bg-page)]"
       spacing="chapter"
     >
+      <StoryChapterAnchor
+        chapter="projects"
+        className="h-[56vh] sm:h-[62vh]"
+      />
       <Container size="page">
         <Stack gap="xl">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
