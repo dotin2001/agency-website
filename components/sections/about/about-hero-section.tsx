@@ -1,7 +1,7 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
-import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
+import { EditorialSidecar } from "@/components/ui/editorial-sidecar";
 import type { AboutHeroContent } from "@/lib/content/about";
 
 export function AboutHeroSection({
@@ -14,10 +14,7 @@ export function AboutHeroSection({
       spacing="chapter"
     >
       <Container size="page">
-        <Split
-          className="lg:grid-cols-[minmax(0,0.95fr)_minmax(16rem,0.75fr)] lg:items-end"
-          gap="xl"
-        >
+        <Stack className="max-w-5xl" gap="xl">
           <Stack className="max-w-4xl" gap="md">
             <p className="w-fit border-l-2 border-[var(--color-brand-primary)] pl-3 text-sm font-medium tracking-normal text-[var(--color-text-secondary)]">
               {content.eyebrow}
@@ -33,10 +30,11 @@ export function AboutHeroSection({
             </p>
           </Stack>
 
-          <p className="border-l border-[var(--color-border-default)] bg-[var(--color-bg-page)]/90 pl-5 text-lg font-medium leading-8 text-[var(--color-text-primary)]">
-            {content.secondaryStatement}
-          </p>
-        </Split>
+          <EditorialSidecar
+            className="max-w-3xl lg:ml-auto"
+            description={content.secondaryStatement}
+          />
+        </Stack>
       </Container>
     </Section>
   );

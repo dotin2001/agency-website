@@ -1,12 +1,26 @@
 import { Container } from "@/components/layout/container";
+import { ProcessBand } from "@/components/ui/process-band";
 import { Section } from "@/components/layout/section";
-import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
-import type { ServicesHeroContent } from "@/lib/content/services";
+import type {
+  ServiceDisciplineContent,
+  ServicesHeroContent,
+} from "@/lib/content/services";
+
+type ServicesHeroSectionProps = Readonly<{
+  content: ServicesHeroContent;
+  highlights: readonly [
+    Pick<ServiceDisciplineContent, "label" | "title">,
+    Pick<ServiceDisciplineContent, "label" | "title">,
+    Pick<ServiceDisciplineContent, "label" | "title">,
+    Pick<ServiceDisciplineContent, "label" | "title">,
+  ];
+}>;
 
 export function ServicesHeroSection({
   content,
-}: Readonly<{ content: ServicesHeroContent }>) {
+  highlights,
+}: ServicesHeroSectionProps) {
   return (
     <Section
       aria-labelledby="services-hero-heading"
@@ -14,10 +28,7 @@ export function ServicesHeroSection({
       spacing="chapter"
     >
       <Container size="page">
-        <Split
-          className="lg:grid-cols-[minmax(0,0.85fr)_minmax(14rem,0.65fr)] lg:items-end"
-          gap="xl"
-        >
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(20rem,1fr)] lg:items-end">
           <Stack className="max-w-4xl" gap="md">
             <p className="w-fit border-l-2 border-[var(--color-brand-primary)] pl-3 text-sm font-medium tracking-normal text-[var(--color-text-secondary)]">
               {content.eyebrow}
@@ -33,10 +44,19 @@ export function ServicesHeroSection({
             </p>
           </Stack>
 
-          <p className="border-l border-[var(--color-border-default)] bg-[var(--color-bg-page)]/90 pl-5 text-xl font-semibold leading-tight tracking-normal text-[var(--color-text-primary)]">
-            {content.secondaryStatement}
-          </p>
-        </Split>
+          <Stack className="max-w-2xl" gap="lg">
+            <p className="border-l border-[var(--color-border-default)] pl-5 text-xl font-semibold leading-tight tracking-normal text-[var(--color-text-primary)]">
+              {content.secondaryStatement}
+            </p>
+            <ProcessBand
+              className="xl:grid-cols-2"
+              items={highlights.map((item) => ({
+                label: item.label,
+                title: item.title,
+              }))}
+            />
+          </Stack>
+        </div>
       </Container>
     </Section>
   );

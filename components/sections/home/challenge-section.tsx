@@ -1,6 +1,5 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
-import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
 import { StoryChapterAnchor } from "@/components/three/story-chapter-anchor";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -21,9 +20,9 @@ export function ChallengeSection({
     >
       <StoryChapterAnchor chapter="challenge" />
       <Container size="page">
-        <Split gap="xl" variant="content-media">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
           <SectionHeader
-            className="max-w-2xl"
+            className="max-w-2xl lg:col-span-5"
             description={content.supportingCopy}
             eyebrow={
               <span className="border-l-2 border-[var(--color-brand-primary)] pl-3">
@@ -35,10 +34,10 @@ export function ChallengeSection({
             title={content.headline}
           />
 
-          <ol className="grid gap-6">
+          <ol className="grid gap-6 sm:grid-cols-2 lg:col-span-7 lg:gap-0 lg:border-y lg:border-[var(--color-border-default)]">
             {content.items.map((item, index) => (
               <li
-                className="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-4 border-t border-[var(--color-border-default)] pt-5 sm:even:ml-8"
+                className="grid gap-4 rounded-md border border-[var(--color-border-default)] p-5 sm:p-6 lg:rounded-none lg:border-x-0 lg:border-t lg:first:border-t-0 lg:odd:border-r"
                 key={item.title}
               >
                 <span className="text-sm font-medium text-[var(--color-brand-primary)]">
@@ -55,7 +54,7 @@ export function ChallengeSection({
               </li>
             ))}
           </ol>
-        </Split>
+        </div>
       </Container>
     </Section>
   );

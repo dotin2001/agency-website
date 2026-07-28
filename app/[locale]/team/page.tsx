@@ -39,7 +39,23 @@ export default async function TeamPage({ params }: TeamPageProps) {
 
   return (
     <>
-      <TeamHeroSection content={content.hero} />
+      <TeamHeroSection
+        content={content.hero}
+        rolePreview={[
+          {
+            discipline: content.roster.roles[0].discipline,
+            displayName: content.roster.roles[0].displayName,
+          },
+          {
+            discipline: content.roster.roles[2].discipline,
+            displayName: content.roster.roles[2].displayName,
+          },
+          {
+            discipline: content.roster.roles[4].discipline,
+            displayName: content.roster.roles[4].displayName,
+          },
+        ]}
+      />
       <TeamRosterSection content={content.roster} />
       <TeamCollaborationSection
         content={content.collaboration}

@@ -1,12 +1,25 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
-import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
-import type { TeamHeroContent } from "@/lib/content/team";
+import { EditorialSidecar } from "@/components/ui/editorial-sidecar";
+import type {
+  TeamHeroContent,
+  TeamRoleContent,
+} from "@/lib/content/team";
+
+type TeamHeroSectionProps = Readonly<{
+  content: TeamHeroContent;
+  rolePreview: readonly [
+    Pick<TeamRoleContent, "discipline" | "displayName">,
+    Pick<TeamRoleContent, "discipline" | "displayName">,
+    Pick<TeamRoleContent, "discipline" | "displayName">,
+  ];
+}>;
 
 export function TeamHeroSection({
   content,
-}: Readonly<{ content: TeamHeroContent }>) {
+  rolePreview,
+}: TeamHeroSectionProps) {
   return (
     <Section
       aria-labelledby="team-hero-heading"
@@ -14,10 +27,7 @@ export function TeamHeroSection({
       spacing="chapter"
     >
       <Container size="page">
-        <Split
-          className="lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,0.65fr)] lg:items-end"
-          gap="xl"
-        >
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,0.8fr)] lg:items-end">
           <Stack className="max-w-4xl" gap="md">
             <p className="w-fit border-l-2 border-[var(--color-brand-primary)] pl-3 text-sm font-medium tracking-normal text-[var(--color-text-secondary)]">
               {content.eyebrow}
@@ -33,10 +43,14 @@ export function TeamHeroSection({
             </p>
           </Stack>
 
-          <p className="border-l border-[var(--color-border-default)] bg-[var(--color-bg-page)]/90 pl-5 text-sm leading-6 text-[var(--color-text-secondary)]">
-            {content.disclosure}
-          </p>
-        </Split>
+          <EditorialSidecar
+            description={content.disclosure}
+            items={rolePreview.map((role) => ({
+              label: role.discipline,
+              value: role.displayName,
+            }))}
+          />
+        </div>
       </Container>
     </Section>
   );

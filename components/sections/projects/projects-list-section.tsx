@@ -1,7 +1,9 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
+import { MediaFrame } from "@/components/ui/media-frame";
 import { ProjectCard } from "@/components/ui/project-card";
+import { ProjectMockVisual } from "@/components/ui/project-mock-visual";
 import { SectionHeader } from "@/components/ui/section-header";
 import type {
   ProjectSummaryContent,
@@ -44,12 +46,30 @@ export function ProjectsListSection({ content }: ProjectsListSectionProps) {
     >
       <Container size="page">
         <Stack gap="xl">
-          <SectionHeader
-            className="max-w-3xl"
-            headingLevel="h2"
-            id="projects-list-heading"
-            title={content.headline}
-          />
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,0.9fr)] lg:items-end">
+            <SectionHeader
+              className="max-w-3xl"
+              headingLevel="h2"
+              id="projects-list-heading"
+              title={content.headline}
+            />
+
+            <div className="grid grid-cols-3 gap-4">
+              {content.projects.slice(0, 3).map((project) => (
+                <MediaFrame
+                  aria-hidden="true"
+                  aspectRatio="portrait"
+                  className="gap-0"
+                  key={`preview-${project.slug}`}
+                >
+                  <ProjectMockVisual
+                    mode="card"
+                    projectSlug={project.slug}
+                  />
+                </MediaFrame>
+              ))}
+            </div>
+          </div>
 
           <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
             {content.projects.map((project, index) => (

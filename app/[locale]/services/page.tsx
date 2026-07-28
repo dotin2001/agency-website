@@ -58,7 +58,27 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
 
   return (
     <>
-      <ServicesHeroSection content={content.hero} />
+      <ServicesHeroSection
+        content={content.hero}
+        highlights={[
+          {
+            label: content.disciplines.disciplines[0].label,
+            title: content.disciplines.disciplines[0].title,
+          },
+          {
+            label: content.disciplines.disciplines[1].label,
+            title: content.disciplines.disciplines[1].title,
+          },
+          {
+            label: content.disciplines.disciplines[2].label,
+            title: content.disciplines.disciplines[2].title,
+          },
+          {
+            label: content.disciplines.disciplines[3].label,
+            title: content.disciplines.disciplines[3].title,
+          },
+        ]}
+      />
       <ServiceDisciplinesSection content={content.disciplines} />
       <EngagementSection content={engagementContent} />
     </>

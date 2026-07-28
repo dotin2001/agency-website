@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/section";
 import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
 import { ButtonLink } from "@/components/ui/button-link";
+import { EditorialSidecar } from "@/components/ui/editorial-sidecar";
 import { SectionHeader } from "@/components/ui/section-header";
 import type { AboutPrinciplesContent } from "@/lib/content/about";
 
@@ -34,21 +35,18 @@ export function PrinciplesSection({
               title={content.headline}
             />
 
-            <Stack
-              className="border-l border-[var(--color-border-default)] pl-5"
-              gap="lg"
-            >
-              <p className="max-w-md text-xl font-semibold leading-tight tracking-normal text-[var(--color-text-primary)]">
-                {content.closingStatement}
-              </p>
-              <ButtonLink
-                aria-label={content.primaryCta.label}
-                href={content.primaryCta.href}
-                size="large"
-              >
-                {content.primaryCta.label}
-              </ButtonLink>
-            </Stack>
+            <EditorialSidecar
+              description={content.closingStatement}
+              footer={
+                <ButtonLink
+                  aria-label={content.primaryCta.label}
+                  href={content.primaryCta.href}
+                  size="large"
+                >
+                  {content.primaryCta.label}
+                </ButtonLink>
+              }
+            />
           </Split>
 
           <ol className="grid gap-0 border-y border-[var(--color-border-default)]">

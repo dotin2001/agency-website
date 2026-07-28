@@ -53,7 +53,14 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
 
   return (
     <>
-      <ProjectsHeroSection content={content.hero} />
+      <ProjectsHeroSection
+        content={content.hero}
+        previewProjects={[
+          content.collection.projects[0].slug,
+          content.collection.projects[1].slug,
+          content.collection.projects[2].slug,
+        ]}
+      />
       <ProjectsListSection
         content={{
           ...content.collection,

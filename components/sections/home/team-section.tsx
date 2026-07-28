@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/section";
 import { Split } from "@/components/layout/split";
 import { Stack } from "@/components/layout/stack";
 import { ButtonLink } from "@/components/ui/button-link";
+import { EditorialSidecar } from "@/components/ui/editorial-sidecar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TeamMemberCard } from "@/components/ui/team-member-card";
 import type { HomeTeamContent } from "@/lib/content/home";
@@ -34,21 +35,18 @@ export function TeamSection({
               title={content.headline}
             />
 
-            <Stack
-              className="border-l border-[var(--color-border-default)] pl-6"
-              gap="lg"
-            >
-              <p className="max-w-md text-xl font-semibold leading-tight tracking-normal text-[var(--color-text-primary)]">
-                {content.collaborationStatement}
-              </p>
-              <ButtonLink
-                href={content.sectionCta.href}
-                size="large"
-                variant="secondary"
-              >
-                {content.sectionCta.label}
-              </ButtonLink>
-            </Stack>
+            <EditorialSidecar
+              description={content.collaborationStatement}
+              footer={
+                <ButtonLink
+                  href={content.sectionCta.href}
+                  size="large"
+                  variant="secondary"
+                >
+                  {content.sectionCta.label}
+                </ButtonLink>
+              }
+            />
           </Split>
 
           <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
