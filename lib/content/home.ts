@@ -5,6 +5,7 @@ import type {
   SectionIntroContent,
 } from "@/lib/content/types";
 import type { Locale } from "@/lib/i18n/locales";
+import type { ProjectSlug } from "@/lib/content/projects";
 
 export type HomeHeroContent = SectionIntroContent &
   Readonly<{
@@ -39,7 +40,7 @@ export type HomeProjectContent = Readonly<{
   client: string;
   industry: string;
   services: string;
-  slug: string;
+  slug: ProjectSlug;
   statement: string;
   title: string;
 }>;

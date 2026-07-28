@@ -1,3 +1,4 @@
+import type { ProjectSlug } from "@/lib/content/projects";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Stack } from "@/components/layout/stack";
@@ -17,6 +18,7 @@ type ProjectGalleryContent = {
     ProjectGalleryItemContent,
     ProjectGalleryItemContent,
   ];
+  slug: ProjectSlug;
 };
 
 type ProjectGalleryLabels = {
@@ -62,6 +64,7 @@ export function ProjectGallerySection({
                 index={index}
                 key={item.label}
                 label={item.label}
+                projectSlug={project.slug}
                 variant={item.variant}
               />
             ))}

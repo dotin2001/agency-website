@@ -76,6 +76,7 @@ export function SelectedProjectsSection({
                   index={index}
                   industry={project.industry}
                   key={project.slug}
+                  projectSlug={project.slug}
                   services={project.services}
                   statement={project.statement}
                   title={project.title}
