@@ -56,7 +56,7 @@ export function SiteHeader({
         </Link>
 
         <nav
-          className="hidden items-center gap-1 md:flex"
+          className="hidden items-center gap-1 lg:flex"
           aria-label={content.navigationLabel}
         >
           <Link

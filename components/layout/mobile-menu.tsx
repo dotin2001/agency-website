@@ -44,7 +44,7 @@ export function MobileMenu({
   );
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         className="min-h-11 rounded-md border border-[var(--color-border-default)] px-3 text-sm font-medium text-[var(--color-text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-primary)]"
